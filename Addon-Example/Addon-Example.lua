@@ -4,7 +4,8 @@
 -- ZeroBane Studio Testing Setup
 if not SLASH_COMMANDS then   -- SLASH_COMMANDS is defined by ESO ,so if it is missing we are not inside ESO
   require [[Addon-Example\ZBS\ESOStandards]]  -- Run only if not in ESO
-  dofile  [[Addon-Example\ZBS\AddonExampleXML.lua]] -- Create all XML Controls for Dummy Testing
+  require [[LuaESO]] -- required to Convert ESO GuiXML to Lua Objects
+  LuaESO:GetXML([[Addon-Example\Addon-Example.xml]]) 
 end
 
 -- The Rest of your addon code here...
