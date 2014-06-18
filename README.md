@@ -6,4 +6,4 @@ Modifications for ZeroBrane Studio to support Addon Development on Elder Scrolls
 ESO = Elder Scrolls Online
 ZBS = ZeroBranch Studio
 
-[ZBS/ESOStandards.lua](ZBS/ESOStandards.lua)  -- Standard Definitions so the Addin can be tested inside ZBS
+[Addon-Example/ZBS/ESOStandards.lua](Addon-Example/ZBS/ESOStandards.lua)  -- Standard Definitions so the Addin can be tested inside ZBS
