@@ -1,7 +1,7 @@
 eso-zbs
 =======
 
-Modifications for [http://studio.zerobrane.com/](ZeroBrane Studio) to support Addon Development on Elder Scrolls Online (ESO)
+Modifications for [ZeroBrane Studio](http://studio.zerobrane.com/) to support Addon Development on Elder Scrolls Online (ESO)
 
 **ESO** = Elder Scrolls Online
 
