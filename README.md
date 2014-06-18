@@ -1,13 +1,15 @@
 eso-zbs
 =======
 
+# Please Read
+
 Modifications for [ZeroBrane Studio](http://studio.zerobrane.com/) to support Addon Development on Elder Scrolls Online (ESO)
 
 **ESO** = Elder Scrolls Online
 
 **ZBS** = ZeroBranch Studio
 
-# Project Directory
+## Project Directory
 
 [Addon-Example/Addon-Example.lua](Addon-Example/Addon-Example.lua) -- Example of necessairy modification to ESO Addin to
 support the Debugging and Compiling inside ZBS
@@ -30,16 +32,17 @@ end
 
 [lualibs/LuaESO/LuaESO.lua](lualibs/LuaESO/LuaESO.lua) -- Supports reading an ESO GuiXML and converts them into Lua Objects.
 This is necessairy to avoid compile errors for objects created by ESO during reading of the XML.
-**Work-To-Do:* Currently Virtual Controls with Sub-Controls are not yet supported - working on it.
+
+**Work-To-Do:** Currently Virtual Controls with Sub-Controls are not yet supported - working on it.
 
 ```lua
   require [[LuaESO]] -- required to Convert ESO GuiXML to Lua Objects
-  LuaESO:GetXML([[MobileBank\MobileBank.xml]]) 
+  LuaESO:GetXML([[Addon-Example\Addon-Example.xml]]) 
   ```
 
 [lualibs/LuaXML/LuaXML.lua](lualibs/LuaXML/LuaXML.lua)  -- Library to read XML Files by Gerald Franz [http://viremo.eludi.net/LuaXML/](http://viremo.eludi.net/LuaXML/)  -- download for binary .dll file necessairy in the same folder.
 
-# ZBS Installation Directory
+## ZBS Installation Directory
 
 [interpreters/luaeso.lua](interpreters/luaeso.lua) -- To be able to Choose Project->Lua Interpreters->Lua 5.1 Elder Scrolls Online
 
