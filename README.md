@@ -16,7 +16,7 @@ This will be loaded at the start of the Addon (only if running inside ZBS)
 **Note:** currently only the definitions so that my addon works are inside the ESOStandards.lua
 I will try to capture all Functions later on. It's always possible to add missing definitons into that file by yourself.
 
-[Addon-Example/ZBS/Addon-ExampleTests.lua](Addon-Example/ZBS/Addon-ExampleTests.lua)  -- Testing of functionality only used within ZBS
+[Addon-Example/ZBS/Addon-ExampleTest.lua](Addon-Example/ZBS/Addon-ExampleTest.lua)  -- Testing of functionality only used within ZBS
 
 This lua will be loaded with dofile at the End of the Addon, because the **OnLoad Event** will not be triggered automatically.
 ```lua
