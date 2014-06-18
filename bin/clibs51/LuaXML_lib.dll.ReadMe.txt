@@ -1,5 +1,5 @@
 Note: this is just a placeholder,
-you will need to download the Binary version of LuaXML and place the LuaXML_lib.dll into the bin\clibs folder
+you will need to download the Binary version of LuaXML and place the LuaXML_lib.dll into the bin\clibs51 folder (create it)
 under the Installation Directory of ZeroBrane Studio.
 
 LuaXML by Gerald Franz :  http://viremo.eludi.net/LuaXML/
