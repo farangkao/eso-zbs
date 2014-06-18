@@ -17,6 +17,14 @@ I will try to capture all Functions later on. It's always possible to add missin
 
 [Addon-Example/ZBS/Addon-ExampleTests.lua](Addon-Example/ZBS/Addon-ExampleTests.lua)  -- Testing of functionality only used within ZBS
 
+This lua will be loaded with dofile at the Start of the Addon.
+```lua
+-- Testing with ZBS --------------------------
+if GetWorldName() == "ZBS" then -- ESO Function GetWorldName returns only "ZBS" if run inside ZBS
+    dofile [[Addon-Example\ZBS\Addon-ExampleTests.lua]] -- Run the Tests to confirm your Code works
+end
+```
+
 [lualibs/LuaESO/LuaESO.lua](lualibs/LuaESO/LuaESO.lua) -- Supports reading an ESO GuiXML and converts them into Lua Objects.
 This is necessairy to avoid compile errors for objects created by ESO during reading of the XML.
 
