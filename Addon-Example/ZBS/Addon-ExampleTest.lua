@@ -1,10 +1,10 @@
 -- Testing inside Zebrane Studio
 
-function ZBS_load(path)
-    dofile ([[MobileBank\]] .. path)
+function ZBS_load(path)  -- Helper Function to Add Directory if necessairy
+    dofile ([[Addon-Example\]] .. path)
 end
--- load other lua files:
-ZBS_load [[MobileBankOptions.lua]]
+-- load other lua files (those are defined in the .TXT of your Addon):
+ZBS_load [[Addon-ExampleOptions.lua]]
 
 ZBS_load [[Libs\LibStub.lua]]
 ZBS_load [[Libs\LibAddonMenu-2.0\LibAddonMenu-2.0.lua]]
@@ -21,9 +21,8 @@ ZBS_load [[Libs\LibAddonMenu-2.0\controls\header.lua]]
 ZBS_load [[Libs\LibAddonMenu-2.0\controls\slider.lua]]
 ZBS_load [[Libs\LibAddonMenu-2.0\controls\texture.lua]]
 
--- Event AddonLoaded:
-MB.OnLoad(0, "MobileBank")
--- Testing commandHandler
-MB.commandHandler("g")
-MB.commandHandler("p")
-MB.commandHandler("i")
+-- Event AddonLoaded:  Simulate the Event from ESO
+AddonExample.OnLoad(0, "Addon-Example")
+-- Testing commandHandler outside of ESO
+AddonExample.commandHandler("test")
+
