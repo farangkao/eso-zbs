@@ -43,6 +43,6 @@ This is necessairy to avoid compile errors for objects created by ESO during rea
 
 [interpreters/luaeso.lua](interpreters/luaeso.lua) -- To be able to Choose Project->Lua Interpreters->Lua 5.1 Elder Scrolls Online
 
-[api/lua/esolua.lua](api/lua/esolua.lua) -- For Syntax Support (incl. AutoComplete and ToolTips)
+[api/lua/esolib.lua](api/lua/esolib.lua) -- For Syntax Support (incl. AutoComplete and ToolTips)
 **Note:** This is just an example, need to be completed with all functions and variables.
 
