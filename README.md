@@ -28,6 +28,8 @@ if GetWorldName() == "ZBS" then -- ESO Function GetWorldName returns only "ZBS" 
 end
 ```
 
+## ZBS Installation Directory
+
 [lualibs/LuaESO/LuaESO.lua](lualibs/LuaESO/LuaESO.lua) -- Supports reading an ESO GuiXML and converts them into Lua Objects.
 This is necessairy to avoid compile errors for objects created by ESO during reading of the XML.
 
@@ -40,7 +42,6 @@ This is necessairy to avoid compile errors for objects created by ESO during rea
 
 [lualibs/LuaXML/LuaXML.lua](lualibs/LuaXML/LuaXML.lua)  -- Library to read XML Files by Gerald Franz [http://viremo.eludi.net/LuaXML/](http://viremo.eludi.net/LuaXML/)  -- download for binary .dll file necessairy in the same folder.
 
-## ZBS Installation Directory
 
 [interpreters/luaeso.lua](interpreters/luaeso.lua) -- To be able to Choose Project->Lua Interpreters->Lua 5.1 Elder Scrolls Online
 
