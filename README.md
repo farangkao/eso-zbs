@@ -7,6 +7,8 @@ Modifications for [ZeroBrane Studio](http://studio.zerobrane.com/) to support Ad
 
 **ZBS** = ZeroBranch Studio
 
+# Project Directory
+
 [Addon-Example/Addon-Example.lua](Addon-Example/Addon-Example.lua) -- Example of necessairy modification to ESO Addin to
 support the Debugging and Compiling inside ZBS
 
@@ -36,3 +38,11 @@ This is necessairy to avoid compile errors for objects created by ESO during rea
   ```
 
 [lualibs/LuaXML/LuaXML.lua](lualibs/LuaXML/LuaXML.lua)  -- Library to read XML Files by Gerald Franz [http://viremo.eludi.net/LuaXML/](http://viremo.eludi.net/LuaXML/)  -- download for binary .dll file necessairy in the same folder.
+
+# ZBS Installation Directory
+
+[interpreters/luaeso.lua](interpreters/luaeso.lua) -- To be able to Choose Project->Lua Interpreters->Lua 5.1 Elder Scrolls Online
+
+[api/lua/esolua.lua](api/lua/esolua.lua) -- For Syntax Support (incl. AutoComplete and ToolTips)
+**Note:** This is just an example, need to be completed with all functions and variables.
+
