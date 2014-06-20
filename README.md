@@ -22,32 +22,35 @@ LuaXML  (Lib to parse XML Files)
 ## Installation Instructions
 
 Download and Install ZBS
-Download LuaDist.lua and save it to <InstallDir>\Packages
-Download ESOAddonDev.lua and save it to <InstallDir>\Packages
+
+Download LuaDist.lua and save it to <<InstallDir>>\Packages
+
+Download ESOAddonDev.lua and save it to <<InstallDir>>\Packages
 
 Type the command inside ZBS on the Local Console:
-**luadist.install "luaxml"
+**luadist.install "luaxml"**
 
-to install LuaXML Support into ZBS.
+To install LuaXML Support into ZBS.
+
 Switch the Lua Interpreter in the Menu "Project" to "ESOAddonDev"
 
 
-## Project Directory
+## Addon Modifications
 
-[Addon-Example/Addon-Example.lua](Addon-Example/Addon-Example.lua) -- Example of necessairy modification to ESO Addin to
-support the Debugging and Compiling inside ZBS
+To fully support your Addon getting Compiled and Debugged you need to do some extra steps.
+
+First all XML Files need to be parsed, so the Object created thru the XML File are known.
 
 ```lua
   ESOAddonDev:GetXML([[Addon-Example\Addon-Example.xml]]) 
-  ```
+```
 
-[Addon-Example/ZBS/ESOStandards.lua](Addon-Example/ZBS/ESOStandards.lua)  -- Standard Definitions so the Addin can be tested.
-This will be loaded at the start of the Addon (only if running inside ZBS)
-
-
-[Addon-Example/ZBS/Addon-ExampleTest.lua](Addon-Example/ZBS/Addon-ExampleTest.lua)  -- Testing of functionality only used within ZBS
-
-This lua will be loaded with dofile at the End of the Addon, because the **OnLoad Event** will not be triggered automatically.
+You will also need to Execute some Commands to Test out more than just the main-lua Code.
+Also some Errors will only be found if you call the Methods in the Test.
+Since the **OnLoad** Method will not be executed thru an Event ,like it would inside ESO.
+You can write all Test-Code directly inside the Main-Lua, however it might be more
+useful to create a seperate Lua for this (i put it in a sub-folder "ZBS" since it's not needed when
+you commit your addon to ESOUI.com)
 
 ```lua
 -- Testing with ZBS --------------------------
@@ -56,7 +59,10 @@ if ESOAddonDev then
 end
 ```
 
+Main Lua-Example here:
+[Addon-Example/Addon-Example.lua](Addon-Example/Addon-Example.lua) -- Example of necessairy modification to ESO Addin to
+support the Debugging and Compiling inside ZBS
 
-
-
+Test-Lua-Example here:
+[Addon-Example/ZBS/Addon-ExampleTest.lua](Addon-Example/ZBS/Addon-ExampleTest.lua)  -- Testing of functionality only used within ZBS
 
