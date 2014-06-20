@@ -21,7 +21,8 @@ LuaXML  (Lib to parse XML Files)
 
 ## Installation Instructions
 
-Download and Install ZBS
+[Download and Install ZBS](http://studio.zerobrane.com/) 
+
 *Note: ZBS is open source, but please consider to donate for this great project*
 
 [Download LuaDist.lua](https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua) and save it to {InstallDir}\Packages
