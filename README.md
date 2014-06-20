@@ -10,15 +10,12 @@ Modifications for [ZeroBrane Studio](http://studio.zerobrane.com/) to support Ad
 ## References
 
 ZeroBrane Studio  (IDE for Lua) by Paul Kulchenko
-
         [http://studio.zerobrane.com/](http://studio.zerobrane.com/) 
         
 LuaDist Package by Paul Kulchenko to support [LuaDist](http://luadist.org/)
-
         [https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua](https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua)
         
 LuaXML  (Lib to parse XML Files) 
-
         [http://viremo.eludi.net/LuaXML//](http://viremo.eludi.net/LuaXML/)
         
 
@@ -38,7 +35,7 @@ Type the command inside ZBS on the Local Console:
 
 this will install LuaXML Support into ZBS.
 
-Switch the **Lua Interpreter** in the **Menu Project**to **ESOAddonDev**
+Switch the **Lua Interpreter** in the **Menu Project** to **ESOAddonDev**
 
 
 ## Addon Modifications
