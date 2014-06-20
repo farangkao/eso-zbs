@@ -22,17 +22,20 @@ LuaXML  (Lib to parse XML Files)
 ## Installation Instructions
 
 Download and Install ZBS
+*Note: ZBS is open source, but please consider to donate for this great project*
 
-Download LuaDist.lua and save it to {InstallDir}\Packages
+[https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua](Download LuaDist.lua) and save it to {InstallDir}\Packages
 
-Download ESOAddonDev.lua and save it to {InstallDir}\Packages
+[https://github.com/farangkao/eso-zbs/archive/master.zip](Download ESOAddonDev.lua) and save it to {InstallDir}\Packages
+
+*Note: master.zip includes all on this project, incl. Examples
 
 Type the command inside ZBS on the Local Console:
 **luadist.install "luaxml"**
 
-To install LuaXML Support into ZBS.
+this will install LuaXML Support into ZBS.
 
-Switch the Lua Interpreter in the Menu "Project" to "ESOAddonDev"
+Switch the **Lua Interpreter** in the **Menu Project**to **ESOAddonDev**
 
 
 ## Addon Modifications
