@@ -10,12 +10,15 @@ Modifications for [ZeroBrane Studio](http://studio.zerobrane.com/) to support Ad
 ## References
 
 ZeroBrane Studio  (IDE for Lua) by Paul Kulchenko
+
         [http://studio.zerobrane.com/](http://studio.zerobrane.com/) 
         
 LuaDist Package by Paul Kulchenko to support [LuaDist](http://luadist.org/)
+
         [https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua](https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua)
         
 LuaXML  (Lib to parse XML Files) 
+
         [http://viremo.eludi.net/LuaXML//](http://viremo.eludi.net/LuaXML/)
         
 
@@ -24,9 +27,9 @@ LuaXML  (Lib to parse XML Files)
 Download and Install ZBS
 *Note: ZBS is open source, but please consider to donate for this great project*
 
-[https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua](Download LuaDist.lua) and save it to {InstallDir}\Packages
+[Download LuaDist.lua](https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua) and save it to {InstallDir}\Packages
 
-[https://github.com/farangkao/eso-zbs/archive/master.zip](Download ESOAddonDev.lua) and save it to {InstallDir}\Packages
+[Download ESOAddonDev.lua](https://github.com/farangkao/eso-zbs/archive/master.zip) and save it to {InstallDir}\Packages
 
 *Note: master.zip includes all on this project, incl. Examples
 
