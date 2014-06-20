@@ -7,45 +7,56 @@ Modifications for [ZeroBrane Studio](http://studio.zerobrane.com/) to support Ad
 
 **ZBS** = ZeroBranch Studio
 
+## References
+
+ZeroBrane Studio  (IDE for Lua) by Paul Kulchenko
+        [http://studio.zerobrane.com/](http://studio.zerobrane.com/) 
+        
+LuaDist Package by Paul Kulchenko to support [LuaDist](http://luadist.org/)
+        [https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua](https://github.com/pkulchenko/ZeroBranePackage/blob/master/luadist.lua)
+        
+LuaXML  (Lib to parse XML Files) 
+        [http://viremo.eludi.net/LuaXML//](http://viremo.eludi.net/LuaXML/)
+        
+
+## Installation Instructions
+
+Download and Install ZBS
+Download LuaDist.lua and save it to <InstallDir>\Packages
+Download ESOAddonDev.lua and save it to <InstallDir>\Packages
+
+Type the command inside ZBS on the Local Console:
+**luadist.install "luaxml"
+
+to install LuaXML Support into ZBS.
+Switch the Lua Interpreter in the Menu "Project" to "ESOAddonDev"
+
+
 ## Project Directory
 
 [Addon-Example/Addon-Example.lua](Addon-Example/Addon-Example.lua) -- Example of necessairy modification to ESO Addin to
 support the Debugging and Compiling inside ZBS
 
+```lua
+  ESOAddonDev:GetXML([[Addon-Example\Addon-Example.xml]]) 
+  ```
+
 [Addon-Example/ZBS/ESOStandards.lua](Addon-Example/ZBS/ESOStandards.lua)  -- Standard Definitions so the Addin can be tested.
 This will be loaded at the start of the Addon (only if running inside ZBS)
 
-**Note:** currently only the definitions so that my addon works are inside the ESOStandards.lua
-I will try to capture all Functions later on. It's always possible to add missing definitons into that file by yourself.
 
 [Addon-Example/ZBS/Addon-ExampleTest.lua](Addon-Example/ZBS/Addon-ExampleTest.lua)  -- Testing of functionality only used within ZBS
 
 This lua will be loaded with dofile at the End of the Addon, because the **OnLoad Event** will not be triggered automatically.
+
 ```lua
 -- Testing with ZBS --------------------------
-if GetWorldName() == "ZBS" then -- ESO Function GetWorldName returns only "ZBS" if run inside ZBS
+if ESOAddonDev then
     dofile [[Addon-Example\ZBS\Addon-ExampleTests.lua]] -- Run the Tests to confirm your Code works
 end
 ```
 
-## ZBS Installation Directory
-
-[lualibs/LuaESO/LuaESO.lua](lualibs/LuaESO/LuaESO.lua) -- Supports reading an ESO GuiXML and converts them into Lua Objects.
-This is necessairy to avoid compile errors for objects created by ESO during reading of the XML.
-
-**Work-To-Do:** Currently Virtual Controls with Sub-Controls are not yet supported - working on it.
-
-```lua
-  require [[LuaESO]] -- required to Convert ESO GuiXML to Lua Objects
-  LuaESO:GetXML([[Addon-Example\Addon-Example.xml]]) 
-  ```
-
-[lualibs/LuaXML/LuaXML.lua](lualibs/LuaXML/LuaXML.lua)  -- Library to read XML Files by Gerald Franz [http://viremo.eludi.net/LuaXML/](http://viremo.eludi.net/LuaXML/)  -- download for binary .dll file necessairy in the same folder.
 
 
-[interpreters/luaeso.lua](interpreters/luaeso.lua) -- To be able to Choose Project->Lua Interpreters->Lua 5.1 Elder Scrolls Online
 
-[api/lua/esolib.lua](api/lua/esolib.lua) -- For Syntax Support (incl. AutoComplete and ToolTips)
-
-**Note:** This is just an example, need to be completed with all functions and variables.
 
