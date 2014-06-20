@@ -1,4 +1,4 @@
-﻿-- Copyright 2014 Paul Kulchenko, ZeroBrane LLC; All rights reserved
+﻿-- ESOAddonDev.lua by @farangkao
 
 local events = { "EVENT_ABILITY_COOLDOWN_UPDATED", "EVENT_ABILITY_LIST_CHANGED", "EVENT_ABILITY_PROGRESSION_RANK_UPDATE", "EVENT_ABILITY_PROGRESSION_RESULT", "EVENT_ABILITY_PROGRESSION_XP_UPDATE", "EVENT_ABILITY_REQUIREMENTS_FAIL", "EVENT_ACHIEVEMENTS_UPDATED", "EVENT_ACHIEVEMENT_AWARDED", "EVENT_ACHIEVEMENT_UPDATED", "EVENT_ACTION_LAYER_POPPED", "EVENT_ACTION_LAYER_PUSHED",
 "EVENT_ACTION_SLOTS_FULL_UPDATE", "EVENT_ACTION_SLOT_ABILITY_SLOTTED", "EVENT_ACTION_SLOT_STATE_UPDATED", "EVENT_ACTION_SLOT_UPDATED", "EVENT_ACTION_UPDATE_COOLDOWNS", "EVENT_ACTIVE_QUEST_TOOL_CHANGED", "EVENT_ACTIVE_QUEST_TOOL_CLEARED", "EVENT_ACTIVE_QUICKSLOT_CHANGED", "EVENT_ACTIVE_WEAPON_PAIR_CHANGED", "EVENT_ADD_ON_LOADED", "EVENT_AGENT_CHAT_ACCEPTED",
@@ -284,6 +284,1535 @@ local globals = { "ABILITY_MORPH_RANK", "ABILITY_PROGRESSION_RESULT_ABILITY_NOT_
 
 }
 
+local standards = [[ 
+AbandonQuest = function(journalQuestIndex)  end
+AcceptAgentChat = function()  end
+AcceptChatInvite = function(accept,channelName)  end
+AcceptFriendRequest = function(displayName)  end
+AcceptGroupInvite = function()  end
+AcceptGuildInvite = function(guildId)  end
+AcceptOfferedQuest = function()  end
+AcceptResurrect = function()  end
+AcceptSharedQuest = function(questId)  end
+AcceptWorldEventInvite = function(eventId)  end
+ActivateBuff = function(buffIndex)  end
+AddChatContainer = function()  end
+AddChatContainerTab = function(chatContainerIndex,name,isCombatLog)  end
+AddHookPointPurchase = function(hookPointIndex,storeIndex)  end
+AddIgnore = function(charOrDisplayName)  end
+AddMapPin = function(pinType,param1,param2,param3)  end
+AddMapQuestPins = function(journalQuestIndex)  end
+AddPendingGuildRank = function(rankId,name,permission)  end
+ApplyPlugToSocket = function(socketIndex,bagId,slotId)  end
+ApplySettings = function()  end
+ApplySocketing = function()  end
+ApplySoftCapToStat = function(derivedStat,value) return 0 end
+AreSocketingChangesPending = function(socketIndex) return false end
+AreUnitsEqual = function(unitTag,secondUnitTag) return false end
+AssignCampaignToPlayer = function(campaignId,reassignOnEnd)  end
+BindKeyToAction = function(layerIndex,categoryIndex,actionIndex,bindingIndex,key,modifier1,modifier2,modifier3,modifier4)  end
+BuyBagSpace = function()  end
+BuyBankSpace = function()  end
+BuyStableSlot = function()  end
+BuyStoreItem = function(entryIndex,quantity)  end
+BuybackItem = function(entryIndex)  end
+CalculateCubicBezierEase = function(progress,x1,y1,x2,y2) return 0 end
+CameraZoomIn = function()  end
+CameraZoomOut = function()  end
+CanBuyFromTradingHouse = function(guildId) return false end
+CanBuyStableSlotUpgrade = function() return false end
+CanConvertItemStyleToImperial = function(itemToBagId,itemToSlotIndex) return false end
+CanEditGuildRankPermission = function(rankId,permission) return false end
+CanItemBeSmithingExtractedOrRefined = function(bagId,slotIndex,craftingSkillType) return false end
+CanItemBeSmithingImproved = function(bagId,slotIndex,craftingSkillType) return false end
+CanItemBeSmithingTraitResearched = function(bagId,slotIndex,craftingSkillType,researchLineIndex,traitIndex) return false end
+CanItemTakeEnchantment = function(itemToEnchantBagId,itemToEnchantSlotIndex,enchantmentToUseBagId,enchantmentToUseSlotIndex) return false end
+CanPlayerModifySockets = function() return false end
+CanPlugGoInSocket = function(plugBagId,plugSlotId,socketIndex) return false end
+CanQueueItemAttachment = function(bagId,itemIndex,attachmentSlot) return false end
+CanRespawnAtKeep = function(keepId) return false end
+CanSellOnTradingHouse = function(guildId) return false end
+CanSiegeWeaponAim = function() return false end
+CanSiegeWeaponFire = function() return false end
+CanSiegeWeaponPackUp = function() return false end
+CanSmithingApparelPatternsBeCraftedHere = function() return false end
+CanSmithingSetPatternsBeCraftedHere = function() return false end
+CanSmithingStyleBeUsedOnPattern = function(styleIndex,patternIndex,materialIndex,materialQuantity) return false end
+CanSmithingWeaponPatternsBeCraftedHere = function() return false end
+CanUnitTrade = function(unitTag) return false end
+CanUseQuestItem = function(journalQuestIndex,stepIndex,conditionIndex) return false end
+CanUseQuestTool = function(journalQuestIndex,toolIndex) return false end
+CanWriteGuildChannel = function(channelId) return false end
+CancelBuff = function(buffIndex)  end
+CancelCast = function() return false end
+CancelFriendRequest = function(index)  end
+CancelGroupSearches = function()  end
+CancelKeepGuildClaimInteraction = function()  end
+CancelKeepGuildReleaseInteraction = function()  end
+CancelLogout = function()  end
+CancelTradingHouseListing = function(index)  end
+ChargeItemWithSoulGem = function(itemToChargeBagId,itemToChargeSlotIndex,soulGemToConsumeBagId,soulGemToConsumeSlotIndex)  end
+CheckGuildKeepClaim = function(guildLuaId,keepId) return 0 end
+CheckGuildKeepRelease = function(guildLuaId) return 0 end
+CheckInventorySpaceAndWarn = function(numItems) return false end
+CheckInventorySpaceSilently = function(numItems) return true end
+CheckSlotAbilityStatusLine = function(slotIndex,statusLine) return false end
+CheckUnitBuffsForAbilityType = function(unitTag,abilityType) return false end
+ChooseAbilityProgressionMorph = function(progressionIndex,morph)  end
+ClaimInteractionKeepForGuild = function(guildLuaId)  end
+ClearAllTradingHouseSearchTerms = function()  end
+ClearCursor = function() return false end
+ClearGameCameraPreferredTarget = function()  end
+ClearHealthWarnings = function()  end
+ClearPendingItemPurchase = function()  end
+ClearQueuedMail = function()  end
+ClearSlot = function(slotIndex)  end
+ClearSocket = function(socketIndex)  end
+ClearTarget = function()  end
+CloseMailbox = function()  end
+CloseStore = function()  end
+CompleteHookPointPurchase = function()  end
+CompleteQuest = function()  end
+ComposeGuildRankPermissions = function(permissions,permission,enabled) return 0 end
+ComputeStringDistance = function(source,target,maxDistance) return 0 end
+ConfirmCampaignEntry = function(campaignId,queueAsGroup,accept)  end
+ConfirmLogout = function(quitGame,option,initialResult)  end
+ConfirmPendingItemPurchase = function()  end
+ConvertItemStyleToImperial = function(itemToBagId,itemToSlotIndex)  end
+ConvertMouseButtonToKeyCode = function(mouseButton) return 0 end
+CraftAlchemyItem = function(solventBagId,solventSlotIndex,reagent1BagId,reagent1SlotIndex,reagent2BagId,reagent2SlotIndex,reagent3BagId,reagent3SlotIndex)  end
+CraftEnchantingItem = function(potencyRuneBagId,potencyRuneSlotIndex,essenceRuneBagId,essenceRuneSlotIndex,aspectRuneBagId,aspectRuneSlotIndex)  end
+CraftProvisionerItem = function(recipeListIndex,recipeIndex)  end
+CraftSmithingItem = function(patternIndex,materialIndex,materialQuantity,styleIndex,traitIndex)  end
+CreateDefaultActionBind = function(actionName,key,modifier1,modifier2,modifier3,modifier4)  end
+CycleGameCameraPreferredEnemyTarget = function()  end
+DeclineAgentChat = function()  end
+DeclineGroupInvite = function()  end
+DeclineResurrect = function()  end
+DeclineSharedQuest = function(questId)  end
+DeclineWorldEventInvite = function(eventId)  end
+DecorateDisplayName = function(displayName) return "" end
+DeleteMail = function(mailId,forceDelete)  end
+DepositBattleTokens = function(keepId,upgradePath,quantity)  end
+DepositMoneyIntoBank = function(money)  end
+DestroyAllJunk = function()  end
+DestroyItem = function(bagId,slotIndex)  end
+DisplayBankUpgrade = function()  end
+DoBattlegroundContextsIntersect = function(context1,context2) return false end
+DoesBagHaveSpaceFor = function(destinationBagId,sourceBagId,sourceSlot) return false end
+DoesCampaignHaveEmperor = function(campaignId) return false end
+DoesGameHaveFocus = function() return false end
+DoesGuildHaveClaimedKeep = function(guildLuaId) return false end
+DoesGuildHavePrivilege = function(guildId,privilege) return false end
+DoesGuildHistoryCategoryHaveMoreEvents = function(guildId,category) return false end
+DoesGuildRankHavePermission = function(guildId,rankIndex,permission) return false end
+DoesHistoryRequireMapRebuild = function(battlegroundContext,oldHistoryPercent,newHistoryPercent) return false end
+DoesInventoryContainEmptySoulGem = function() return false end
+DoesItemHaveDurability = function(bagId,slotIndex) return false end
+DoesJournalQuestConditionHavePosition = function(journalQuestIndex,stepIndex,conditionIndex) return false end
+DoesPlayerHaveGuildPermission = function(guildId,permission) return false end
+DoesPlayerMeetCampaignRequirements = function(campaignId) return false end
+DoesUnitExist = function(unitTag) return false end
+DoesUnitHaveTooltip = function(unitTag) return false end
+DoesUnitUsePowerType = function(unitTag,powerType) return false end
+EnchantItem = function(itemToEnchantBagId,itemToEnchantSlotIndex,enchantmentToUseBagId,enchantmentToUseSlotIndex)  end
+EndInteraction = function(interactionType)  end
+EndLooting = function()  end
+EndPendingInteraction = function()  end
+EquipItem = function(bagId,slotIndex,equipSlotIndex)  end
+ExecuteChatCommand = function(text)  end
+ExecuteTradingHouseSearch = function(page,sortField,sortAscending)  end
+ExtractEnchantingItem = function(bagId,slotIndex)  end
+ExtractOrRefineSmithingItem = function(bagId,slotIndex)  end
+FastTravelToNode = function(nodeIndex)  end
+FeedMount = function(feedIndex)  end
+FindFirstEmptySlotInBag = function(bagId) return 0 end
+FlashHealthWarningStage = function(stage,flashTimeMs)  end
+FormatAchievementLinkTimestamp = function(timestamp) return "" end
+FormatTimeMilliseconds = function(timeValueInMilliseconds,formatType,precisionType,direction) return "" end
+FormatTimeSeconds = function(timeValueInSeconds,formatType,precisionType,direction) return "" end
+GameCameraInteractStart = function()  end
+GameCameraMouseFreeLookStart = function()  end
+GameCameraMouseFreeLookStop = function()  end
+GetAbilityInfoByIndex = function(slotIndex) return "" end
+GetAbilityProgressionAbilityInfo = function(progressionIndex,morph,rank) return "" end
+GetAbilityProgressionInfo = function(progressionIndex) return "" end
+GetAbilityProgressionXPInfo = function(progressionIndex) return 0 end
+GetAchievementCategoryInfo = function(topLevelIndex) return "" end
+GetAchievementCriterion = function(achievementId,criterionIndex) return "" end
+GetAchievementId = function(topLevelIndex,categoryIndex,achievementIndex) return 0 end
+GetAchievementInfo = function(achievementId) return "" end
+GetAchievementItemLink = function(achievementId,rewardIndex,linkStyle) return "" end
+GetAchievementLink = function(achievementId,linkStyle) return "" end
+GetAchievementNumCriteria = function(achievementId) return 0 end
+GetAchievementNumRewards = function(achievementId) return 0 end
+GetAchievementProgressFromLinkData = function(achievementId,progress)  end
+GetAchievementRewardInfo = function(achievementId,rewardIndex) return 0 end
+GetAchievementSubCategoryInfo = function(topLevelIndex,subCategoryIndex) return "" end
+GetActionBarPage = function(physicalPageId) return 0 end
+GetActionBindingInfo = function(layerIndex,categoryIndex,actionIndex,bindingIndex) return 0 end
+GetActionIndicesFromName = function(actionName) return 0 end
+GetActionInfo = function(layerIndex,categoryIndex,actionIndex) return "" end
+GetActionLayerCategoryInfo = function(layerIndex,categoryIndex) return "" end
+GetActionLayerInfo = function(layerIndex) return "" end
+GetActionSlotType = function(slotIndex) return 0 end
+GetActiveActionLayerIndex = function(activeActionLayerIndex) return 0 end
+GetActiveCombatTipInfo = function(activeCombatTipId) return "" end
+GetActiveKeepId = function() return 0 end
+GetActiveWeaponPairInfo = function() return 0 end
+GetAgentChatRequestInfo = function() return false end
+GetAlchemyItemTraits = function(reagentBagId,reagentSlotIndex)  end
+GetAlchemyResultInspiration = function(solventBagId,solventSlotIndex,reagent1BagId,reagent1SlotIndex,reagent2BagId,reagent2SlotIndex,reagent3BagId,reagent3SlotIndex) return 0 end
+GetAlchemyResultingItemInfo = function(solventBagId,solventSlotIndex,reagent1BagId,reagent1SlotIndex,reagent2BagId,reagent2SlotIndex,reagent3BagId,reagent3SlotIndex) return "" end
+GetAlchemyResultingItemLink = function(solventBagId,solventSlotIndex,reagent1BagId,reagent1SlotIndex,reagent2BagId,reagent2SlotIndex,reagent3BagId,reagent3SlotIndex,linkStyle) return "" end
+GetAllUnitAttributeVisualizerEffectInfo = function(unitTag)  end
+GetAllianceName = function(alliance) return "" end
+GetAlliancePoints = function() return 0 end
+GetAmountRepairKitWouldRepairItem = function(itemToRepairBagId,itemToRepairSlotIndex,repairKitToConsumeBagId,repairKitToConsumeSlotIndex) return 0 end
+GetAmountSoulGemWouldChargeItem = function(itemToChargeBagId,itemToChargeSlotIndex,soulGemToConsumeBagId,soulGemToConsumeSlotIndex) return 0 end
+GetArtifactScoreBonusInfo = function(alliance,artifactType,index) return "" end
+GetAssignedCampaignId = function() return 0 end
+GetAttachedItemInfo = function(mailId,attachIndex) return "" end
+GetAttachedItemLink = function(mailId,attachIndex,linkStyle) return "" end
+GetAttributeDerivedStatInfo = function(attribute,index) return 0 end
+GetAttributeDerivedStatPerPointValue = function(attribute,stat) return 0 end
+GetAttributePassiveInfo = function(attributeType,index) return 0 end
+GetAttributeSpentPoints = function(attributeType) return 0 end
+GetAttributeUnspentPoints = function() return 0 end
+GetAvAArtifactScore = function(campaignId,alliance,artifactType) return false end
+GetAvAKeepScore = function(campaignId,alliance) return false end
+GetAvAKeepsHeld = function(campaignId,alliance) return 0 end
+GetAvAObjectiveInfo = function(keepId,objectiveId,battlegroundContext) return "" end
+GetAvAObjectiveKeysByIndex = function(index) return 0 end
+GetAvAObjectivePinInfo = function(keepId,objectiveId,battlegroundContext) return 0 end
+GetAvAObjectivePvPSystem = function(keepId,objectiveId,battlegroundContext) return 0 end
+GetAvAObjectiveRelatedUnitName = function(keepId,objectiveId,battlegroundContext) return "" end
+GetAvAObjectiveSpawnPinInfo = function(keepId,objectiveId,battlegroundContext) return 0 end
+GetAvARankIcon = function(rank) return "" end
+GetAvARankName = function(gender,rank) return "" end
+GetAvARankProgress = function(currentRankPoints) return 0 end
+GetAvailableSkillPoints = function() return 0 end
+GetBagInfo = function(bagId) return "icon",10 end
+GetBankedMoney = function() return 0 end
+GetBattleTokens = function() return 0 end
+GetBattleTokensForKeepUpgradePathLevel = function(keepId,battlegroundContext,upgradePath,level) return 0 end
+GetBattlegroundMedalInfo = function(medalIndex) return "" end
+GetBindingIndicesFromKeys = function(layerIndex,keyCode,mod1,mod2,mod3,mod4) return 0 end
+GetBuffAbilityType = function(unitTag,serverSlot) return 0 end
+GetBuffEffectType = function(unitTag,serverSlot) return 0 end
+GetBuffStatusEffectType = function(unitTag,serverSlot) return 0 end
+GetBuybackItemInfo = function(entryIndex) return "" end
+GetBuybackItemLink = function(entryIndex,linkStyle) return "" end
+GetCTFScoreEntryInfo = function(slotIndex) return 0 end
+GetCVar = function(CVarName) return "" end
+GetCadwellZoneInfo = function(difficultyLevel,zoneIndex) return "" end
+GetCadwellZonePOIInfo = function(difficultyLevel,zoneIndex,poiIndex) return "" end
+GetCampaignAbdicationStatus = function(campaignId) return 0 end
+GetCampaignAllianceLeaderboardEntryInfo = function(campaignId,allianceId,entryIndex) return false end
+GetCampaignAlliancePotentialScore = function(campaignId,alliance) return 0 end
+GetCampaignAllianceScore = function(campaignId,alliance) return 0 end
+GetCampaignClassLeaderboardEntryInfo = function(campaignId,classId,entryIndex) return false end
+GetCampaignEmperorInfo = function(campaignId) return 0 end
+GetCampaignEmperorReignDuration = function(campaignId) return 0 end
+GetCampaignGuestCooldown = function() return 0 end
+GetCampaignHistoryWindow = function(battlegroundContext) return 0 end
+GetCampaignHoldingScoreValues = function(campaignId) return 0 end
+GetCampaignHoldings = function(campaignId,elementType,alliance,targetAlliance) return 0 end
+GetCampaignLeaderboardEntryInfo = function(campaignId,entryIndex) return false end
+GetCampaignLeaderboardMaxRank = function(campaignId) return 0 end
+GetCampaignName = function(campaignId) return "" end
+GetCampaignPreference = function() return 0 end
+GetCampaignQueueConfirmationDuration = function() return 0 end
+GetCampaignQueueEntry = function(entryIndex) return 0 end
+GetCampaignQueuePosition = function(campaignId,queueAsGroup) return 0 end
+GetCampaignQueueRemainingConfirmationSeconds = function(campaignId,queueAsGroup) return 0 end
+GetCampaignQueueState = function(campaignId,queueAsGroup) return 0 end
+GetCampaignReassignCooldown = function() return 0 end
+GetCampaignReassignCost = function(reassignType) return 0 end
+GetCampaignRulesetDescription = function(rulesetId) return "" end
+GetCampaignRulesetId = function(campaignId) return 0 end
+GetCampaignRulesetImperialKeepId = function(rulesetId,alliance,index) return 0 end
+GetCampaignRulesetName = function(campaignId) return "" end
+GetCampaignRulesetNumImperialKeeps = function(rulesetId,alliance) return 0 end
+GetCampaignRulesetType = function(rulesetId) return 0 end
+GetCampaignRulsetMinEmperorAlliancePoints = function(rulesetId,alliance) return 0 end
+GetCampaignSequenceId = function(campaignId) return 0 end
+GetCampaignSocialConnectionInfo = function(connectionIndex) return 0 end
+GetCampaignUnderdogLeaderAlliance = function(campaignId) return 0 end
+GetCategoryInfoFromAchievementId = function(achievementId) return 0 end
+GetChamberState = function(chamberIndex) return 0 end
+GetChanceToForceLock = function() return 0 end
+GetChargeInfoForItem = function(bagId,slotIndex) return 0 end
+GetChatCategoryColor = function(category) return 0 end
+GetChatChannelId = function(name) return 0 end
+GetChatContainerColors = function(chatContainerIndex) return 0 end
+GetChatContainerTabInfo = function(chatContainerIndex,tabIndex) return "" end
+GetChatFontSize = function() return 0 end
+GetChatterData = function() return "" end
+GetChatterFarewell = function() return "" end
+GetChatterGreeting = function() return "" end
+GetChatterOption = function(optionIndex) return "" end
+GetChatterOptionCount = function() return 0 end
+GetClaimedKeepGuildName = function(keepId,battlegroundContext) return "" end
+GetClassInfo = function(index) return 0 end
+GetClassName = function(gender,classId) return "" end
+GetClosestKeep = function(battlegroundContext) return 0 end
+GetClosestKeepOfType = function(keepType,resourceType,battlegroundContext) return 0 end
+GetComparisonEquipSlotsFromItemLink = function(itemLink) return 0 end
+GetCon = function(otherLevel,playerLevel) return 0 end
+GetCostToCraftAlchemyItem = function(solventBagId,solventSlotIndex) return 0 end
+GetCostToCraftEnchantingItem = function(potencyRuneBagId,potencyRuneSlotIndex,essenceRuneBagId,essenceRuneSlotIndex,aspectRuneBagId,aspectRuneSlotIndex) return 0 end
+GetCostToCraftProvisionerItem = function(recipeListIndex,recipeIndex) return 0 end
+GetCostToCraftSmithingItem = function(patternIndex,materialIndex,materialQuantity,styleIndex,traitIndex) return 0 end
+GetCraftingInteractionType = function() return 0 end
+GetCraftingSkillLineIndices = function(craftingSkillType) return 0 end
+GetCurrentCampaignId = function() return 0 end
+GetCurrentCampaignLoyaltyStreak = function() return 0 end
+GetCurrentMapIndex = function() return 0 end
+GetCurrentMapZoneIndex = function() return 0 end
+GetCurrentMoney = function() return 0 end
+GetCurrentQuickslot = function() return 0 end
+GetCurrentRecipeIngredientCount = function(recipeListIndex,recipeIndex,ingredientIndex) return 0 end
+GetCurrentSmithingMaterialItemCount = function(patternIndex,materialIndex) return 0 end
+GetCurrentSmithingStyleItemCount = function(styleItemIndex) return 0 end
+GetCurrentSmithingTraitItemCount = function(traitItemIndex) return 0 end
+GetCurrentSubZonePOIIndices = function() return 0 end
+GetCurrentTitleIndex = function() return 0 end
+GetCurrentWeaponSet = function() return 0 end
+GetCursorBagId = function() return 0 end
+GetCursorContentType = function() return 0 end
+GetCursorSlotIndex = function() return 0 end
+GetDate = function() return 0 end
+GetDateStringFromTimestamp = function(timestamp) return "" end
+GetDeathInfo = function() return 0 end
+GetDiffBetweenTimeStamps = function(laterTime,earlierTime) return 0 end
+GetDisplayModes = function()  end
+GetDisplayName = function() return "" end
+GetDynamicChatChannelName = function(channelId) return "" end
+GetEarnedAchievementPoints = function() return 0 end
+GetEmoteSlashName = function(index) return "" end
+GetEmperorAllianceBonusInfo = function(campaignId,alliance) return "" end
+GetEnchantingResultingItemInfo = function(potencyRuneBagId,potencyRuneSlotIndex,essenceRuneBagId,essenceRuneSlotIndex,aspectRuneBagId,aspectRuneSlotIndex) return "" end
+GetEnchantingResultingItemLink = function(potencyRuneBagId,potencyRuneSlotIndex,essenceRuneBagId,essenceRuneSlotIndex,aspectRuneBagId,aspectRuneSlotIndex,linkStyle) return "" end
+GetEquippedItemInfo = function(equipSlot) return "" end
+GetErrorString = function(errorStringId) return "" end
+GetFastTravelNodeInfo = function(nodeIndex) return false end
+GetFeedbackIdByIndex = function(feedbackIndex) return 0 end
+GetFeedbackType = function(feedbackId) return 0 end
+GetFirstFreeValidSlotForItem = function(bagId,slotIndex) return 0 end
+GetFirstFreeValidSlotForSkillAbility = function(skillType,skillLineIndex,abilityIndex) return 0 end
+GetFishingLure = function() return 0 end
+GetFishingLureInfo = function(lureIndex) return "" end
+GetFormattedTime = function() return 0 end
+GetForwardCampPinInfo = function(battlegroundContext,index) return 0 end
+GetFrameDeltaNormalizedForTargetFramerate = function(targetFramesPerSecond) return 0 end
+GetFrameDeltaTimeMilliseconds = function() return 0 end
+GetFrameDeltaTimeSeconds = function() return 0 end
+GetFrameTimeMilliseconds = function() return 0 end
+GetFrameTimeSeconds = function() return 0 end
+GetFramerate = function() return 0 end
+GetFriendCharacterInfo = function(friendIndex) return false end
+GetFriendInfo = function(friendIndex) return "" end
+GetGameCameraInteractableActionInfo = function() return "" end
+GetGameCameraInteractableInfo = function() return false end
+GetGameCameraMaxCameraDistance = function() return 0 end
+GetGameCameraMinCameraDistance = function() return 0 end
+GetGameCameraNonInteractableName = function() return "" end
+GetGameDescription = function() return "" end
+GetGameInfoTexture = function() return "" end
+GetGameName = function() return "" end
+GetGameScore = function(alliance) return 0 end
+GetGameState = function() return 0 end
+GetGameStateIsPaused = function() return false end
+GetGameStateIsTimed = function() return false end
+GetGameTimeMilliseconds = function() return 0 end
+GetGameTimeRemaining = function() return 0 end
+GetGameType = function() return 0 end
+GetGenderFromNameDescriptor = function(nameDescriptor) return 0 end
+GetGroundTargetingError = function() return 0 end
+GetGroupInviteInfo = function() return "" end
+GetGroupLeaderUnitTag = function() return "" end
+GetGroupMemberRoles = function(unitTag) return false end
+GetGroupSize = function() return 0 end
+GetGroupUnitTagByIndex = function(sortIndex) return "" end
+GetGuestCampaignId = function() return 0 end
+GetGuiHidden = function(guiName) return false end
+GetGuildAlliance = function(guildId) return 0 end
+GetGuildClaimInteractionKeepId = function() return 0 end
+GetGuildClaimedKeep = function(guildLuaId) return 0 end
+GetGuildDescription = function(guildId) return "" end
+GetGuildEventInfo = function(guildId,category,eventIndex) return 0 end
+GetGuildFoundedDate = function(guildId) return "" end
+GetGuildId = function(guildIndex) return 0 end
+GetGuildInviteInfo = function(index) return 0 end
+GetGuildMemberCharacterInfo = function(guildId,memberIndex) return false end
+GetGuildMemberInfo = function(guildId,memberIndex) return "" end
+GetGuildMotD = function(guildId) return "" end
+GetGuildName = function(guildId) return "" end
+GetGuildRankCustomName = function(guildId,rankIndex) return "" end
+GetGuildRankId = function(guildId,rankIndex) return 0 end
+GetGuildReleaseInteractionKeepId = function() return 0 end
+GetGuildReputationRankInfo = function(repRankIndex) return "" end
+GetHeldSlots = function() return 0 end
+GetHelpCategoryInfo = function(helpCategoryIndex) return "" end
+GetHelpInfo = function(helpCategoryIndex,helpIndex) return "" end
+GetHelpSearchResults = function()  end
+GetHistoricalAvAObjectivePinInfo = function(keepId,objectiveId,battlegroundContext,historyPercent) return 0 end
+GetHistoricalKeepAlliance = function(keepId,battlegroundContext,historyPercent) return 0 end
+GetHistoricalKeepPinInfo = function(keepId,battlegroundContext,historyPercent) return 0 end
+GetHistoricalKeepTravelNetworkLinkInfo = function(linkIndex,bgContext,historyPercent) return 0 end
+GetHistoricalKeepUnderAttack = function(keepId,battlegroundContext,historyPercent) return false end
+GetHookPointInfo = function(index) return 0 end
+GetHookPointStoreInfo = function(hookPointIndex,storeIndex) return "" end
+GetIgnoredInfo = function(index) return "" end
+GetIncomingFriendRequestInfo = function(index) return "" end
+GetInteractionKeepId = function() return 0 end
+GetInteractionType = function() return 0 end
+GetInterfaceColor = function(interfaceColorType,fieldValue) return 0 end
+GetIsQuestSharable = function(journalQuestIndex) return false end
+GetIsTracked = function(trackType,param1,param2) return false end
+GetItemCondition = function(bagId,slotIndex) return 0 end
+GetItemCooldownInfo = function(bagId,slotIndex) return 0 end
+GetItemCraftingInfo = function(bagId,slotIndex) return 0 end
+GetItemCurrencyQuantity = function(itemCurrencyId) return 0 end
+GetItemCurrentActionBarSlot = function(bagId,slotIndex) return 0 end
+GetItemFilterTypeInfo = function(bagId,slotIndex)  end
+GetItemInfo = function(bagId,slotIndex) return "" end
+GetItemInstanceId = function(bagId1,slotIndex1) return 0 end
+GetItemLevel = function(bagId,slotIndex) return 0 end
+GetItemLink = function(bagId,slotIndex,linkStyle) return "" end
+GetItemLinkInfo = function(itemLink) return "" end
+GetItemName = function(bagId,slotIndex) return "" end
+GetItemNumSockets = function(bagId,slotIndex) return 0 end
+GetItemRepairCost = function(bagId,slotIndex) return 0 end
+GetItemSocketType = function(bagId,slotIndex,socketIndex) return 0 end
+GetItemSoundCategory = function(bagId,slotIndex) return 0 end
+GetItemSoundCategoryFromLink = function(link) return 0 end
+GetItemStatValue = function(bagId,slotIndex) return 0 end
+GetItemTotalCount = function(bagId,slotIndex) return 0 end
+GetItemTrait = function(bagId,slotIndex) return 0 end
+GetItemType = function(bagId,slotIndex) return 0 end
+GetJournalQuestConditionInfo = function(journalQuestIndex,stepIndex,conditionIndex) return "" end
+GetJournalQuestConditionType = function(journalQuestIndex,stepIndex,conditionIndex,assisted) return 0 end
+GetJournalQuestConditionValues = function(journalQuestIndex,stepIndex,conditionIndex) return 0 end
+GetJournalQuestEnding = function(journalQuestIndex) return "" end
+GetJournalQuestInfo = function(journalQuestIndex) return "" end
+GetJournalQuestIsComplete = function(journalQuestIndex) return false end
+GetJournalQuestIsPushed = function(journalQuestIndex) return false end
+GetJournalQuestLevel = function(journalQuestIndex) return 0 end
+GetJournalQuestLocationInfo = function(journalQuestIndex) return "" end
+GetJournalQuestName = function(journalQuestIndex) return "" end
+GetJournalQuestNumConditions = function(journalQuestIndex,stepIndex) return 0 end
+GetJournalQuestNumRewards = function(journalQuestIndex) return 0 end
+GetJournalQuestNumSteps = function(journalQuestIndex) return 0 end
+GetJournalQuestRepeatType = function(journalQuestIndex) return 0 end
+GetJournalQuestRewardInfo = function(journalQuestIndex,rewardIndex) return 0 end
+GetJournalQuestStepInfo = function(journalQuestIndex,stepIndex) return "" end
+GetJournalQuestTimerCaption = function(journalQuestIndex) return "" end
+GetJournalQuestTimerInfo = function(journalQuestIndex) return 0 end
+GetJournalQuestType = function(journalQuestIndex) return 0 end
+GetKeepAccessible = function(keepId,bgContext) return false end
+GetKeepAlliance = function(keepId,battlegroundContext) return 0 end
+GetKeepArtifactObjectiveId = function(keepId) return 0 end
+GetKeepDefensiveLevel = function(keepId,battlegroundContext) return 0 end
+GetKeepFastTravelInteraction = function() return 0 end
+GetKeepHasResourcesForTravel = function(keepId,bgContext) return false end
+GetKeepInCombat = function(keepId,battlegroundContext) return false end
+GetKeepKeysByIndex = function(index) return 0 end
+GetKeepName = function(keepId) return "" end
+GetKeepPinInfo = function(keepId,battlegroundContext) return 0 end
+GetKeepProductionLevel = function(keepId,battlegroundContext) return 0 end
+GetKeepPvPSystem = function(keepId) return 0 end
+GetKeepResourceInfo = function(keepId,battlegroundContext,resourceType,level) return 0 end
+GetKeepResourceLevel = function(keepId,battlegroundContext,resourceType) return 0 end
+GetKeepResourceType = function(keepId) return 0 end
+GetKeepScoreBonusInfo = function(index) return "" end
+GetKeepTravelNetworkLinkEndpoints = function(linkIndex,bgContext) return 0 end
+GetKeepTravelNetworkLinkInfo = function(linkIndex,bgContext) return 0 end
+GetKeepTravelNetworkNodeInfo = function(nodeIndex,bgContext) return 0 end
+GetKeepType = function(keepId) return 0 end
+GetKeepUnderAttack = function(keepId,battlegroundContext) return false end
+GetKeepUpgradeDetails = function(keepId,battlegroundContext,resourceType,level,index) return "" end
+GetKeepUpgradeInfo = function(keepId,battlegroundContext,upgradePath,level) return 0 end
+GetKeepUpgradeLineFromResourceType = function(resourceType) return 0 end
+GetKeepUpgradeLineFromUpgradePath = function(upgradePath) return 0 end
+GetKeepUpgradePathDetails = function(keepId,battlegroundContext,upgradePath,level,index) return "" end
+GetKeepUpgradeRate = function(keepId,battlegroundContext,upgradeLine) return 0 end
+GetKeepWallInfo = function() return "" end
+GetKeyName = function(keyCode) return "" end
+GetKillLocationPinInfo = function(index) return 0 end
+GetLFGDisplayLevels = function(activity,index) return 0 end
+GetLFGOption = function(activity,index) return 0 end
+GetLargeAvARankIcon = function(rank) return "" end
+GetLastCraftingResultItemInfo = function(resultIndex) return "" end
+GetLastCraftingResultLearnedTraitInfo = function(resultIndex) return "" end
+GetLastCraftingResultLearnedTranslationInfo = function(resultIndex) return "" end
+GetLastCraftingResultTotalInspiration = function() return 0 end
+GetLeaderboardCampaignSequenceId = function(campaignId) return 0 end
+GetLearnedAbilityInfoForLevel = function(level,learnedIndex,progression) return "" end
+GetLockQuality = function() return 0 end
+GetLockpickingTimeLeft = function() return 0 end
+GetLootItemInfo = function(lootIndex) return 0 end
+GetLootItemLink = function(lootId,linkStyle) return "" end
+GetLootMoney = function() return 0 end
+GetLootTargetInfo = function() return "" end
+GetLoreBookInfo = function(categoryIndex,collectionIndex,bookIndex) return "" end
+GetLoreBookLink = function(categoryIndex,collectionIndex,bookIndex,linkStyle) return "" end
+GetLoreCategoryInfo = function(categoryIndex) return "" end
+GetLoreCollectionInfo = function(categoryIndex,collectionIndex) return "" end
+GetMailItemInfo = function(mailId) return "" end
+GetMailQueuedAttachmentLink = function(attachmentSlot,linkStyle) return "" end
+GetMapContentType = function() return 0 end
+GetMapFloorInfo = function() return 0 end
+GetMapInfo = function(index) return "" end
+GetMapKeySectionName = function(sectionIndex) return "" end
+GetMapKeySectionSymbolInfo = function(sectionIndex,symbolIndex) return "" end
+GetMapLocation = function(locationIndex)  end
+GetMapLocationIcon = function(locationIndex) return "" end
+GetMapLocationTooltipHeader = function(locationIndex) return "" end
+GetMapLocationTooltipLineInfo = function(locationIndex,tooltipLineIndex) return "" end
+GetMapMouseoverInfo = function(normalizedMouseX,normalizedMouseY) return "" end
+GetMapName = function() return "" end
+GetMapNumTiles = function() return 0 end
+GetMapParentCategories = function(index)  end
+GetMapPing = function(unitTag) return 0 end
+GetMapPlayerPosition = function(unitTag) return 0 end
+GetMapPlayerWaypoint = function() return 0 end
+GetMapRallyPoint = function() return 0 end
+GetMapTileTexture = function(tileIndex) return "" end
+GetMapType = function() return 0 end
+GetMaxBags = function() return 0 end
+GetMaxBindingsPerAction = function() return 0 end
+GetMaxKeepNPCs = function(keepId,battlegroundContext) return 0 end
+GetMaxKeepSieges = function(keepId,battlegroundContext) return 0 end
+GetMaxMailItems = function() return 0 end
+GetMaxMountLevel = function() return 0 end
+GetMaxPowerPools = function() return 0 end
+GetMaxSimultaneousSmithingResearch = function(craftingSkillType) return 0 end
+GetMaxStableSlots = function() return 0 end
+GetMaxTransformPlugs = function() return 0 end
+GetMinMaxRamEscorts = function() return 0 end
+GetMountFeedOptionInfo = function(feedIndex) return "" end
+GetNameOfGameCameraQuestToolTarget = function() return "" end
+GetNearestQuestCondition = function(considerType) return false end
+GetNextAchievementInLine = function(achievementId) return 0 end
+GetNextBankUpgradePrice = function() return 0 end
+GetNextGuildBankSlotId = function(lastSlotId) return 0 end
+GetNextMailId = function(lastMailId) return 0 end
+GetNextStableSlotCost = function() return 0 end
+GetNonCombatBonus = function(nonCombatBonus) return 0 end
+GetNumAbilities = function() return 0 end
+GetNumAbilitiesLearnedForLevel = function(level,progression) return 0 end
+GetNumAbilityProgressionRanks = function(progressionIndex,morph) return 0 end
+GetNumAbilityProgressions = function() return 0 end
+GetNumAchievementCategories = function() return 0 end
+GetNumActionLayers = function() return 0 end
+GetNumActiveActionLayers = function() return 0 end
+GetNumActiveCombatTips = function() return 0 end
+GetNumArtifactScoreBonuses = function(alliance,artifactType) return 0 end
+GetNumAttributeDerivedStats = function(attribute) return 0 end
+GetNumAttributePassives = function(attributeType) return 0 end
+GetNumAvAObjectives = function() return 0 end
+GetNumBattlegroundMedals = function() return 0 end
+GetNumBuffs = function(unitTag) return 0 end
+GetNumBuybackItems = function() return 0 end
+GetNumCampaignAllianceLeaderboardEntries = function(campaignId,allianceId) return 0 end
+GetNumCampaignClassLeaderboardEntries = function(campaignId,classId) return 0 end
+GetNumCampaignLeaderboardEntries = function(campaignId) return 0 end
+GetNumCampaignQueueEntries = function() return 0 end
+GetNumCampaignRulesetTypes = function() return 0 end
+GetNumCampaignSocialConnections = function() return 0 end
+GetNumChatCategories = function() return 0 end
+GetNumChatContainerTabs = function(chatContainerIndex) return 0 end
+GetNumChatContainers = function() return 0 end
+GetNumClasses = function() return 0 end
+GetNumEmotes = function() return 0 end
+GetNumFastTravelNodes = function() return 0 end
+GetNumFishingLures = function() return 0 end
+GetNumForwardCamps = function(battlegroundContext) return 0 end
+GetNumFreeAnytimeCampaignReassigns = function() return 0 end
+GetNumFreeEndCampaignReassigns = function() return 0 end
+GetNumFriendlyKeepNPCs = function(keepId,battlegroundContext) return 0 end
+GetNumFriends = function() return 0 end
+GetNumGuildEvents = function(guildId,category) return 0 end
+GetNumGuildHistoryCategories = function() return 0 end
+GetNumGuildInvites = function() return 0 end
+GetNumGuildMembers = function(guildId) return 0 end
+GetNumGuildMembersRequiredForPrivilege = function(privilege) return 0 end
+GetNumGuildPermissions = function() return 0 end
+GetNumGuildRanks = function(guildId) return 0 end
+GetNumGuildReputationRanks = function() return 0 end
+GetNumGuilds = function() return 0 end
+GetNumHelpCategories = function() return 0 end
+GetNumHelpEntriesWithinCategory = function(helpCategoryIndex) return 0 end
+GetNumHookPointStoreEntries = function(hookPointIndex) return 0 end
+GetNumHookPoints = function() return 0 end
+GetNumIgnored = function() return 0 end
+GetNumIncomingFriendRequests = function() return 0 end
+GetNumJournalQuests = function() return 0 end
+GetNumKeepPieceHealItems = function() return 0 end
+GetNumKeepResourceTypes = function() return 0 end
+GetNumKeepScoreBonuses = function() return 0 end
+GetNumKeepTravelNetworkLinks = function(bgContext) return 0 end
+GetNumKeepTravelNetworkNodes = function(bgContext) return 0 end
+GetNumKeepUpgradePaths = function() return 0 end
+GetNumKeeps = function() return 0 end
+GetNumKillLocations = function() return 0 end
+GetNumLFGOptions = function(activity) return 0 end
+GetNumLastCraftingResultItems = function() return 0 end
+GetNumLastCraftingResultLearnedTraits = function() return 0 end
+GetNumLastCraftingResultLearnedTranslations = function() return 0 end
+GetNumLockpicksLeft = function() return 0 end
+GetNumLootItems = function() return 0 end
+GetNumLoreCategories = function() return 0 end
+GetNumMailItems = function() return 0 end
+GetNumMapKeySectionSymbols = function(sectionIndex) return 0 end
+GetNumMapKeySections = function() return 0 end
+GetNumMapLocationTooltipLines = function(locationIndex) return 0 end
+GetNumMapLocations = function() return 0 end
+GetNumMapPinFilters = function() return 0 end
+GetNumMaps = function() return 0 end
+GetNumMountFeedOptions = function() return 0 end
+GetNumObjectivesOwnedByAlliance = function(alliance) return 0 end
+GetNumOutgoingFriendRequests = function() return 0 end
+GetNumPOIs = function(zoneIndex) return 0 end
+GetNumPOIsForDifficultyLevelAndZone = function(difficultyLevel,zoneIndex) return 0 end
+GetNumPendingFeedback = function() return 0 end
+GetNumPlayerStatuses = function() return 0 end
+GetNumPlayersEscortingRam = function() return 0 end
+GetNumPointsNeededForAvARank = function(rank) return 0 end
+GetNumRecipeLists = function() return 0 end
+GetNumScoreEntries = function() return 0 end
+GetNumScoreboardMedals = function(index) return 0 end
+GetNumSelectionCampaignFriends = function(campaignIndex) return 0 end
+GetNumSelectionCampaignGroupMembers = function(campaignIndex) return 0 end
+GetNumSelectionCampaignGuildMembers = function(campaignIndex) return 0 end
+GetNumSelectionCampaigns = function() return 0 end
+GetNumSieges = function(keepId,battlegroundContext,alliance) return 0 end
+GetNumSkillAbilities = function(skillType,skillIndex) return 0 end
+GetNumSkillLines = function(skillType) return 0 end
+GetNumSkillTypes = function() return 0 end
+GetNumSkyShards = function() return 0 end
+GetNumSmithingImprovementItems = function() return 0 end
+GetNumSmithingPatterns = function() return 0 end
+GetNumSmithingResearchLines = function(craftingSkillType) return 0 end
+GetNumSmithingStyleItems = function() return 0 end
+GetNumSmithingTraitItems = function() return 0 end
+GetNumStableSlots = function() return 0 end
+GetNumStats = function() return 0 end
+GetNumStoreItems = function() return 0 end
+GetNumSynergies = function() return 0 end
+GetNumTeams = function() return 0 end
+GetNumTitles = function() return 0 end
+GetNumTracked = function() return 0 end
+GetNumTradingHouseGuilds = function() return 0 end
+GetNumTradingHouseListings = function() return 0 end
+GetNumTutorials = function() return 0 end
+GetNumUnreadMail = function() return 0 end
+GetNumUpgradesForKeepAtPathLevel = function(keepId,battlegroundContext,upgradePath,level) return 0 end
+GetNumUpgradesForKeepAtResourceLevel = function(keepId,battlegroundContext,resourceType,level) return 0 end
+GetNumUsedPlayerAuras = function() return 0 end
+GetNumViewableTreasureMaps = function() return 0 end
+GetNumWeaponSetRanks = function(weaponSetIndex) return 0 end
+GetNumWeaponSets = function() return 0 end
+GetNumZonesForDifficultyLevel = function(difficultyLevel) return 0 end
+GetOfferedQuestInfo = function() return "" end
+GetOfferedQuestShareIds = function()  end
+GetOfferedQuestShareInfo = function(questId) return "" end
+GetOutgoingFriendRequestInfo = function(index) return "" end
+GetPOIInfo = function(zoneIndex,poiIndex) return "" end
+GetPOIMapInfo = function(zoneIndex,poiIndex) return 0 end
+GetParentKeepForKeep = function(keepId) return 0 end
+GetPendingAssignedCampaign = function() return 0 end
+GetPendingResurrectInfo = function() return "" end
+GetPlayerAuraInfo = function(auraIndex) return false end
+GetPlayerBuffPriorities = function()  end
+GetPlayerCameraHeading = function() return 0 end
+GetPlayerCampaignRewardTierInfo = function(campaignId) return 0 end
+GetPlayerDifficultyLevel = function() return 0 end
+GetPlayerGuildMemberIndex = function(guildId) return 0 end
+GetPlayerLocationName = function() return "" end
+GetPlayerMaxLevel = function() return 0 end
+GetPlayerRoles = function() return false end
+GetPlayerStat = function(derivedStat,statBonusOption,statSoftCapOption) return 0 end
+GetPlayerStatus = function() return 0 end
+GetPledgeOfMaraOfferInfo = function() return "" end
+GetPlugItemInfo = function(bagId,slotId,socketIndex) return "" end
+GetPlugItemLink = function(bagId,slotId,socketIndex,linkStyle) return "" end
+GetPoisonEffectColorIndex = function(unitTag,serverSlot) return 0 end
+GetPreferredCampaign = function() return 0 end
+GetPreviousAchievementInLine = function(achievementId) return 0 end
+GetQuestDailyCount = function() return 0 end
+GetQuestItemInfo = function(journalQuestIndex,stepIndex,conditionIndex) return "" end
+GetQuestRewardItemLink = function(rewardIndex,linkStyle) return "" end
+GetQuestToolCooldownInfo = function(journalQuestIndex,toolIndex) return 0 end
+GetQuestToolCount = function(journalQuestIndex) return 0 end
+GetQuestToolInfo = function(journalQuestIndex,toolIndex) return "" end
+GetQueuedCOD = function() return 0 end
+GetQueuedItemAttachmentInfo = function(attachmentSlot) return 0 end
+GetQueuedMailPostage = function() return 0 end
+GetQueuedMoneyAttachment = function() return 0 end
+GetRawUnitName = function(unitTag) return "" end
+GetRecallCooldown = function() return 0 end
+GetRecallCost = function() return 0 end
+GetRecentlyCompletedAchievements = function(numAchievementsToGet)  end
+GetRecipeInfo = function(recipeListIndex,recipeIndex) return false end
+GetRecipeIngredientItemInfo = function(recipeListIndex,recipeIndex,ingredientIndex) return "" end
+GetRecipeIngredientItemLink = function(recipeListIndex,recipeIndex,ingredientIndex,linkStyle) return "" end
+GetRecipeListInfo = function(recipeListIndex) return "" end
+GetRecipeResultItemInfo = function(recipeListIndex,recipeIndex) return "" end
+GetRecipeResultItemLink = function(recipeListIndex,recipeIndex,linkStyle) return "" end
+GetRepairAllCost = function() return 0 end
+GetRepairKitTier = function(bagId,slotIndex) return 0 end
+GetRequiredSmithingRefinementStackSize = function() return 0 end
+GetResourceKeepForKeep = function(parentKeepId,resourceType) return 0 end
+GetReviveSoulGemInfo = function(includeOnlyInInventory) return "" end
+GetRingOfMaraExperienceBonus = function() return 0 end
+GetRunestoneSoundInfo = function(bagId,slotIndex) return "" end
+GetRunestoneTranslatedName = function(bagId,slotIndex) return "" end
+GetScoreToWin = function() return 0 end
+GetScoreboardMedalInfo = function(scoreIndex,medalIndex) return "" end
+GetScoringTeam = function() return 0 end
+GetSecondsInCampaignQueue = function(campaignId,queueAsGroup) return 0 end
+GetSecondsPlayed = function() return 0 end
+GetSecondsSinceMidnight = function() return 0 end
+GetSecondsUntilCampaignEnd = function(campaignId) return 0 end
+GetSecondsUntilCampaignScoreReevaluation = function(campaignId) return 0 end
+GetSecondsUntilCampaignStart = function(campaignId) return 0 end
+GetSecondsUntilCampaignUnderdogReevaluation = function(campaignId) return 0 end
+GetSecondsUntilKeepClaimAvailable = function(keepId,battlegroundContext) return 0 end
+GetSelectedGuildBankId = function() return 0 end
+GetSelectedTradingHouseGuildId = function() return 0 end
+GetSelectionCampaignAllianceScore = function(campaignIndex,alliance) return 0 end
+GetSelectionCampaignId = function(campaignIndex) return 0 end
+GetSelectionCampaignPopulationData = function(campaignIndex,alliance) return 0 end
+GetSelectionCampaignTimes = function(campaignIndex) return 0 end
+GetSelectionCampaignUnderdogLeaderAlliance = function(campaignIndex) return 0 end
+GetSetting = function(system,settingId) return "" end
+GetSettingChamberStress = function() return 0 end
+GetSetting_Bool = function(system,settingId) return false end
+GetSharedScoreEntryInfo = function(slotIndex) return "" end
+GetShortAllianceName = function(alliance) return "" end
+GetShowScoreButton = function() return false end
+GetSiegeAmmoIcon = function() return "" end
+GetSkillAbilityInfo = function(skillType,skillIndex,abilityIndex) return "" end
+GetSkillAbilityNextUpgradeInfo = function(skillType,skillIndex,abilityIndex) return "" end
+GetSkillAbilityUpgradeInfo = function(skillType,skillIndex,abilityIndex) return 0 end
+GetSkillLineInfo = function(skillType,skillIndex) return "" end
+GetSkillLineXPInfo = function(skillType,skillIndex) return 0 end
+GetSlotAbilityCost = function(slotIndex) return 0 end
+GetSlotAbilityRank = function(slotIndex) return 0 end
+GetSlotBoundId = function(slotIndex) return 0 end
+GetSlotCooldownInfo = function(slotIndex) return 0 end
+GetSlotItemCount = function(slotIndex) return 0 end
+GetSlotItemQuality = function(slotIndex) return 0 end
+GetSlotItemSound = function(slotIndex) return 0 end
+GetSlotName = function(slotIndex) return "" end
+GetSlotStackSize = function(bagId,slotIndex) return 0 end
+GetSlotTexture = function(slotIndex) return "" end
+GetSlotType = function(slotIndex) return 0 end
+GetSmithingImprovedItemInfo = function(itemToImproveBagId,itemToImproveSlotIndex,craftingSkillType) return "" end
+GetSmithingImprovedItemLink = function(itemToImproveBagId,itemToImproveSlotIndex,craftingSkillType,linkStyle) return "" end
+GetSmithingImprovementChance = function(itemToImproveBagId,itemToImproveSlotIndex,numBoostersToUse,craftingSkillType) return 0 end
+GetSmithingImprovementItemInfo = function(craftingSkillType,improvementItemIndex) return "" end
+GetSmithingImprovementItemLink = function(craftingSkillType,improvementItemIndex,linkStyle) return "" end
+GetSmithingPatternInfo = function(patternIndex,materialIndexOverride,materialQuanityOverride,styleOverride,traitTypeOverride) return "" end
+GetSmithingPatternMaterialItemInfo = function(patternIndex,materialIndex) return "" end
+GetSmithingPatternMaterialItemLink = function(patternIndex,materialIndex,linkStyle) return "" end
+GetSmithingPatternResultLink = function(patternIndex,materialIndex,materialQuantity,styleIndex,traitIndex,linkStyle) return "" end
+GetSmithingResearchLineInfo = function(craftingSkillType,researchLineIndex) return "" end
+GetSmithingResearchLineTraitInfo = function(craftingSkillType,researchLineIndex,traitIndex) return 0 end
+GetSmithingResearchLineTraitTimes = function(craftingSkillType,researchLineIndex,traitIndex) return 0 end
+GetSmithingStyleItemInfo = function(styleItemIndex) return "" end
+GetSmithingStyleItemLink = function(styleItemIndex,linkStyle) return "" end
+GetSmithingTraitItemInfo = function(traitItemIndex) return 0 end
+GetSmithingTraitItemLink = function(traitItemIndex,linkStyle) return "" end
+GetSoulGemInfo = function(soulGemType,targetLevel,onlyInInventory) return "" end
+GetSoulGemItemInfo = function(bagId,slotIndex) return 0 end
+GetStableSlotInfo = function(stableIndex) return "" end
+GetStableSlotMountStats = function(stableIndex) return 0 end
+GetStatIncreasePerLevel = function(statId) return 0 end
+GetStatSoftCap = function(derivedStat) return 0 end
+GetStoreCurrencyTypes = function() return false end
+GetStoreEntryInfo = function(entryIndex) return "" end
+GetStoreEntryMaxBuyable = function(entryIndex) return 0 end
+GetStoreEntryStatValue = function(entryIndex) return 0 end
+GetStoreEntryTypeInfo = function(entryIndex)  end
+GetStoreItemLink = function(entryIndex,linkStyle) return "" end
+GetString = function(stringVariablePrefix,contextId) return "" end
+GetSynergyInfo = function(synergyIndex) return 0 end
+GetTimeStamp = function() return 0 end
+GetTimeString = function() return "" end
+GetTimeUntilMountCanBeFed = function(stableIndex) return 0 end
+GetTitle = function(titleIndex) return "" end
+GetTotalAchievementPoints = function() return 0 end
+GetTotalCampaignHoldings = function(campaignId,elementType,alliance) return 0 end
+GetTrackedByIndex = function(index) return 0 end
+GetTrackedIsAssisted = function(trackType,param1,param2) return false end
+GetTradeInviteInfo = function() return "" end
+GetTradeItemBagAndSlot = function(who,tradeIndex) return 0 end
+GetTradeItemInfo = function(who,tradeIndex) return "" end
+GetTradeItemLink = function(who,tradeIndex,linkStyle) return "" end
+GetTradingHouseCutPercentage = function() return 0 end
+GetTradingHouseGuildDetails = function(index) return 0 end
+GetTradingHouseListingCounts = function() return 0 end
+GetTradingHouseListingItemInfo = function(index) return "" end
+GetTradingHouseListingPercentage = function() return 0 end
+GetTradingHousePostPriceInfo = function(desiredPostPrice) return 0 end
+GetTradingHouseSearchResultItemInfo = function(index) return "" end
+GetTreasureMapInfo = function(treasureMapIndex) return "" end
+GetTutorialInfo = function(tutorialIndex) return "" end
+GetTutorialLinkedHelpInfo = function(tutorialIndex) return 0 end
+GetTutorialType = function(tutorialIndex) return 0 end
+GetUniqueNameForCharacter = function(characterName) return "" end
+GetUnitAlliance = function(unitTag) return 0 end
+GetUnitAttributeVisualizerEffectInfo = function(unitTag,unitAttributeVisual,statType,attributeType,powerType) return 0 end
+GetUnitAvARank = function(unitTag) return 0 end
+GetUnitAvARankPoints = function(unitTag) return 0 end
+GetUnitBuffInfo = function(unitTag,buffIndex) return "" end
+GetUnitBuffSlot = function(unitTag,buffIndex) return 0 end
+GetUnitCaption = function(unitTag) return "" end
+GetUnitCastingInfo = function(unitTag) return "" end
+GetUnitClass = function(unitTag) return "" end
+GetUnitClassId = function(unitTag) return 0 end
+GetUnitDifficulty = function(unitTag) return 0 end
+GetUnitDisguiseState = function(unitTag) return 0 end
+GetUnitDrownTime = function(unitTag) return 0 end
+GetUnitEffectiveLevel = function(unitTag) return 0 end
+GetUnitFinesseRankInfo = function(unitTag) return 0 end
+GetUnitGender = function(unitTag) return 0 end
+GetUnitHidingEndTime = function(unitTag) return 0 end
+GetUnitLevel = function(unitTag) return 0 end
+GetUnitName = function(unitTag) return "" end
+GetUnitNameHighlightedByReticle = function() return "" end
+GetUnitPower = function(unitTag,powerType) return 0 end
+GetUnitPowerInfo = function(unitTag,poolIndex) return 0 end
+GetUnitPrimaryPowerIndex = function(unitTag) return 0 end
+GetUnitPrimaryPowerType = function(unitTag) return 0 end
+GetUnitRace = function(unitTag) return "" end
+GetUnitReaction = function(unitTag) return 0 end
+GetUnitReactionColor = function(unitTag) return 0 end
+GetUnitSilhouetteTexture = function(unitTag) return "" end
+GetUnitStealthState = function(unitTag) return 0 end
+GetUnitTitle = function(unitTag) return "" end
+GetUnitType = function(unitTag) return 0 end
+GetUnitVeteranPoints = function(unitTag) return 0 end
+GetUnitVeteranPointsMax = function(unitTag) return 0 end
+GetUnitVeteranRank = function(unitTag) return 0 end
+GetUnitXP = function(unitTag) return 0 end
+GetUnitXPDebt = function(unitTag) return 0 end
+GetUnitXPMax = function(unitTag) return 0 end
+GetUnitZone = function(unitTag) return "" end
+GetWeaponSetAbilityInfo = function(weaponSetIndex,rank) return "" end
+GetWeaponSetInfo = function(weaponSetIndex) return "" end
+GetWeaponSetXPInfo = function(weaponSetIndex) return 0 end
+GetWeaponSwapUnlockedLevel = function() return 0 end
+GetWorldName = function() return "" end
+GroupDisband = function()  end
+GroupInvite = function(unitTag)  end
+GroupInviteByName = function(name)  end
+GroupKick = function(unitTag)  end
+GroupKickByName = function(name)  end
+GroupLeave = function()  end
+GroupPromote = function(unitTag)  end
+GuildCreate = function(guildName,guildAlliance)  end
+GuildDemote = function(guildId,displayName)  end
+GuildInvite = function(guildId,displayName)  end
+GuildLeave = function(guildId)  end
+GuildPromote = function(guildId,displayName)  end
+GuildRemove = function(guildId,displayName)  end
+HasActivationHighlight = function(slotIndex) return false end
+HasAnyJunk = function(bagId) return false end
+HasCostFailure = function(slotIndex) return false end
+HasFallingFailure = function(slotIndex) return false end
+HasMountedFailure = function(slotIndex) return false end
+HasOtherAbilityOngoingFailure = function(slotIndex) return false end
+HasRangeFailure = function(slotIndex) return false end
+HasReincarnatingFailure = function(slotIndex) return false end
+HasRequirementFailure = function(slotIndex) return false end
+HasStatusEffectFailure = function(slotIndex) return false end
+HasSwimmingFailure = function(slotIndex) return false end
+HasTargetFailure = function(slotIndex) return false end
+HasUnreadMail = function() return false end
+HasWeaponSlotFailure = function(slotIndex) return false end
+HideMouse = function(onlyConsiderWhileMoving)  end
+Id64ToString = function(id) return "" end
+ImproveSmithingItem = function(itemToImproveBagId,itemToImproveSlotIndex,numBoostersToUse)  end
+InitializePendingGuildRanks = function(guildId)  end
+InsertActionLayerByName = function(layerName,activeLayerIndex)  end
+InventoryContainsEmptySoulGem = function() return false end
+IsActionLayerActiveByName = function(layerName) return false end
+IsAgentChatActive = function() return false end
+IsAltKeyDown = function() return false end
+IsAssignedBattlegroundContext = function(battlegroundContext) return false end
+IsAvAObjectiveInBattleground = function(keepId,objectiveId,battlegroundContext) return false end
+IsBankUpgradeAvailable = function() return false end
+IsCapsLockOn = function() return false end
+IsChamberSolved = function(chamberIndex) return false end
+IsChatContainerTabCategoryEnabled = function(chatContainerIndex,tabIndex,chatCategory) return false end
+IsCommandKeyDown = function() return false end
+IsControlKeyDown = function() return false end
+IsCurrentlySearchingForGroup = function() return false end
+IsCurrentlySocketingItem = function(bagId,slotId) return false end
+IsCurrentlySocketingUnit = function(unitTag) return false end
+IsCustomChatChannel = function(channelId) return false end
+IsDecoratedDisplayName = function(displayName) return false end
+IsEquipable = function(bagId,slotIndex) return false end
+IsFeedbackGatheringEnabled = function() return false end
+IsFriend = function(charOrDisplayName) return false end
+IsFriendlyForwardCampAvailable = function() return false end
+IsGameCameraActive = function() return false end
+IsGameCameraFirstPerson = function() return false end
+IsGameCameraPreferredTargetHighlightedByReticle = function() return false end
+IsGameCameraPreferredTargetValid = function() return false end
+IsGameCameraSiegeControlled = function() return false end
+IsGameCameraTargetInMeleeRange = function() return false end
+IsGameCameraTargetOutOfRange = function() return false end
+IsGameCameraUIModeActive = function() return false end
+IsGameCameraUnitHighlightedAttackable = function() return false end
+IsGameCameraUnitHighlightedValid = function() return false end
+IsGuildRankGuildMaster = function(guildId,rankIndex) return false end
+IsIgnored = function(displayName) return false end
+IsInCampaign = function() return false end
+IsInCustomChatChannel = function(channelId) return false end
+IsInteractionCameraActive = function() return false end
+IsInteractionPending = function() return false end
+IsItemBound = function(bagId,slotIndex) return false end
+IsItemChargeable = function(bagId,slotIndex) return false end
+IsItemConsumable = function(bagId,slotIndex) return false end
+IsItemEnchantable = function(bagId,slotIndex) return false end
+IsItemEnchantment = function(bagId,slotIndex) return false end
+IsItemJunk = function(bagId,slotIndex) return false end
+IsItemRepairKit = function(bagId,slotIndex) return false end
+IsItemSoulGem = function(soulGemType,bagId,slotIndex) return false end
+IsItemUsable = function(bagId,slotIndex) return false end
+IsJournalQuestInCurrentMapZone = function(questIndex) return false end
+IsLocalBattlegroundContext = function(battlegroundContext) return false end
+IsLocalMailboxFull = function() return false end
+IsLockedWeaponSlot = function(equipSlot) return false end
+IsMailReturnable = function(mailId) return false end
+IsMapLocationTooltipLineVisible = function(locationIndex,tooltipLineIndex) return false end
+IsMapLocationVisible = function(locationIndex) return false end
+IsMapPinFilterSet = function(filter) return false end
+IsMinSpecMachine = function() return false end
+IsMounted = function() return false end
+IsMouseWithinClientArea = function() return false end
+IsPOIGroupDungeon = function(zoneIndex,poiIndex) return false end
+IsPOIPublicDungeon = function(zoneIndex,poiIndex) return false end
+IsPOIWayshrine = function(zoneIndex,poiIndex) return false end
+IsPerformingCraftProcess = function() return false end
+IsPlayerActivated = function() return false end
+IsPlayerControllingSiegeWeapon = function() return false end
+IsPlayerEscortingRam = function() return false end
+IsPlayerGroundTargeting = function() return false end
+IsPlayerInAvAWorld = function() return false end
+IsPlayerInGroup = function(name) return false end
+IsPlayerInsidePinArea = function(pinType,param1,param2,param3) return false end
+IsPlayerInteractingWithObject = function() return false end
+IsPlayerMoving = function() return false end
+IsPrivateFunction = function(functionName) return false end
+IsProtectedFunction = function(functionName) return false end
+IsQueuedForCampaign = function(campaignId,queueAsGroup) return false end
+IsResurrectPending = function() return false end
+IsReticleHidden = function() return false end
+IsShiftKeyDown = function() return false end
+IsSlotActionInRange = function(slotIndex) return false end
+IsSlotActionTooClose = function(slotIndex) return false end
+IsSlotItemConsumable = function(slotIndex) return false end
+IsSlotLocked = function(slotIndex) return false end
+IsSlotSoulTrap = function(slotIndex) return false end
+IsSlotToggled = function(slotIndex) return false end
+IsSlotUsable = function(slotIndex) return false end
+IsSlotUsed = function(slotIndex) return false end
+IsSmithingStyleKnown = function(styleItemIndex) return false end
+IsSmithingTraitItemValidForPattern = function(patternIndex,traitItemIndex) return false end
+IsSmithingTraitKnownForResult = function(patternIndex,materialIndex,materialQuantity,styleIndex,traitIndex) return false end
+IsStableSlotEmpty = function(stableIndex) return false end
+IsTargetSameAsLastValidTarget = function() return false end
+IsUnitAttackable = function(unitTag) return false end
+IsUnitDead = function(unitTag) return false end
+IsUnitFriend = function(unitTag) return false end
+IsUnitFriendlyFollower = function(unitTag) return false end
+IsUnitGroupLeader = function(unitTag) return false end
+IsUnitGrouped = function(unitTag) return false end
+IsUnitIgnored = function(unitTag) return false end
+IsUnitInCombat = function(unitTag) return false end
+IsUnitInGroupSupportRange = function(unitTag) return false end
+IsUnitInspectableSiege = function(unitTag) return false end
+IsUnitOnline = function(unitTag) return false end
+IsUnitPlayer = function(unitTag) return false end
+IsUnitPvPFlagged = function(unitTag) return false end
+IsUnitUsingVeteranDifficulty = function(unitTag) return false end
+IsUnitVeteran = function(unitTag) return false end
+IsUserAdjustingClientWindow = function() return false end
+IsValidAbilityForSlot = function(abilityIndex,slotIndex) return false end
+IsValidGuildName = function(guildName)  end
+IsValidItemForSlot = function(bagId,bagSlotId,actionSlotIndex) return false end
+IsValidItemForSlotByItemInfo = function(itemId,itemQualityDefId,itemRequiredLevel,itemInstanceData,actionSlotIndex) return false end
+IsValidMountName = function(mountName)  end
+IsValidQuestIndex = function(journalQuestIndex) return false end
+IsWerewolf = function() return false end
+JoinChatChannel = function(name)  end
+JoinRespawnQueue = function()  end
+JumpToFriend = function(name)  end
+JumpToGroupLeader = function()  end
+JumpToGroupMember = function(name)  end
+JumpToGuildMember = function(name)  end
+LeaveCampaignQueue = function(campaignId,queueAsGroup)  end
+LeaveChatChannel = function(name)  end
+LocaleAwareToLower = function(stringToLowercase) return "" end
+LocaleAwareToUpper = function(stringToUppercase) return "" end
+LockCameraRotation = function(locked)  end
+Logout = function()  end
+LootAll = function()  end
+LootItemById = function(lootId)  end
+LootMoney = function()  end
+MapZoomOut = function() return 0 end
+PickupAbility = function(abilityIndex)  end
+PickupAbilityBySkillLine = function(skillType,skillLineIndex,abilityIndex)  end
+PickupAction = function(actionSlot)  end
+PickupEquippedItem = function(slot)  end
+PickupInventoryItem = function(bagId,slotIndex,count)  end
+PickupMount = function(mountIndex)  end
+PickupQuestItem = function(journalQuestIndex,stepIndex,conditionIndex)  end
+PickupQuestTool = function(journalQuestIndex,toolIndex)  end
+PickupStoreBuybackItem = function(entryIndex)  end
+PickupStoreItem = function(entryIndex)  end
+PickupTradeItem = function(tradeIndex)  end
+PingMap = function(pingType,mapDisplayType,normalizedX,normalizedZ)  end
+PlaceInActionBar = function(actionSlot)  end
+PlaceInAttachmentSlot = function(attachmentSlot)  end
+PlaceInEquipSlot = function(slot)  end
+PlaceInInventory = function(bagId,slotIndex)  end
+PlaceInSocket = function(socketIndex)  end
+PlaceInStoreWindow = function()  end
+PlaceInTradeWindow = function(tradeIndex)  end
+PlaceInTradingHouse = function()  end
+PlaceInTransfer = function()  end
+PlaceInUnitFrame = function(target)  end
+PlaceInWorldLeftClick = function()  end
+PlainStringFind = function(string,searchFor) return false end
+PlayEmote = function(index)  end
+PlayItemSound = function(itemSoundCategory,itemSoundAction)  end
+PlaySound = function(soundName)  end
+PlayerHasAttributeUpgrades = function() return false end
+PopActionLayer = function()  end
+ProcessMapClick = function(normalizedClickX,normalizedClickY) return 0 end
+PurchaseAttributes = function(health,magicka,stamina)  end
+PushActionLayerByName = function(layerName)  end
+PutPointIntoSkillAbility = function(skillType,skillIndex,index,putPointInNextUpgrade)  end
+QueryCampaignLeaderboardData = function()  end
+QueryCampaignSelectionData = function()  end
+QueueCOD = function(amount)  end
+QueueForCampaign = function(campaignId,queueAsGroup)  end
+QueueItemAttachment = function(bagId,itemIndex,attachmentSlot) return 0 end
+QueueMoneyAttachment = function(amount)  end
+Quit = function()  end
+ReadLoreBook = function(categoryIndex,collectionIndex,bookIndex) return "" end
+ReadMail = function(mailId) return "" end
+RefreshScoreBoard = function()  end
+RefreshSettings = function()  end
+RegisterForAssignedCampaignData = function()  end
+RejectFriendRequest = function(displayName)  end
+RejectGuildInvite = function(guildId)  end
+Release = function()  end
+ReleaseGameCameraSiegeControlled = function()  end
+ReleaseInteractionKeepForGuild = function()  end
+ReleaseKeepForGuild = function(guildLuaId)  end
+ReloadUI = function(guiName)  end
+RemoveActionLayerByName = function(layerName)  end
+RemoveChatContainer = function(chatContainerIndex)  end
+RemoveChatContainerTab = function(chatContainerIndex,tabIndex)  end
+RemoveFriend = function(displayName)  end
+RemoveIgnore = function(displayName)  end
+RemoveMapPin = function(pinType,param1,param2,param3)  end
+RemoveMapPinsByType = function(pinType)  end
+RemoveMapPinsInRange = function(startType,endType,param1,param2,param3)  end
+RemoveMapQuestPins = function(journalQuestIndex)  end
+RemovePendingFeedback = function(feedbackId)  end
+RemovePlayerWaypoint = function()  end
+RemoveQueuedItemAttachment = function(attachmentSlot)  end
+RemoveRallyPoint = function()  end
+RenameMount = function(stableIndex,name)  end
+RepairAll = function()  end
+RepairItem = function(bagId,slotIndex)  end
+RepairItemWithRepairKit = function(itemToRepairBagId,itemToRepairSlotIndex,repairKitToConsumeBagId,repairKitToConsumeSlotIndex)  end
+RepairKeepPiece = function()  end
+RequestFriend = function(charOrDisplayName,message)  end
+RequestGuildHistoryCategoryNewest = function(guildId,category) return false end
+RequestGuildHistoryCategoryOlder = function(guildId,category) return false end
+RequestJournalQuestConditionAssistance = function(journalQuestIndex,stepIndex,conditionIndex,assisted) return 0 end
+RequestKeepInfoForKeep = function(keepId,on)  end
+RequestOfflineGuildMembers = function(guildId)  end
+RequestOpenMailbox = function()  end
+RequestPostItemOnTradingHouse = function(bag,slot,quantity,postingPrice)  end
+RequestReadMail = function(mailId)  end
+RequestTradingHouseListings = function()  end
+ResearchSmithingTrait = function(bagId,slotIndex)  end
+ResetAllBindsToDefault = function()  end
+ResetAllTutorials = function()  end
+ResetCampaignHistoryWindow = function(battlegroundContext,currentHistoryPercent) return false end
+ResetChatCategoryColorToDefault = function(category)  end
+ResetChatContainerColorsToDefault = function(chatContainerIndex)  end
+ResetChatContainerTabToDefault = function(chatContainerIndex,tabIndex)  end
+ResetChatFontSizeToDefault = function()  end
+ResetChatter = function()  end
+ResetSettingToDefault = function(system,settingId)  end
+ResetSocketing = function()  end
+ResetToDefaultSettings = function(system)  end
+RespawnAtForwardCamp = function(index)  end
+RespawnAtKeep = function(keepId)  end
+RespecAbilityProgression = function(progressionIndex)  end
+ReturnMail = function(mailId)  end
+Revive = function()  end
+SavePendingGuildRanks = function() return false end
+SelectChatterOption = function(optionIndex)  end
+SelectGuildBank = function(guildId)  end
+SelectPlayerStatus = function(status)  end
+SelectSlotAbility = function(abilityIndex,slotIndex)  end
+SelectSlotItem = function(bagId,bagSlotId,slotIndex)  end
+SelectSlotSkillAbility = function(skillType,skillLineIndex,abilityIndex,slotIndex)  end
+SelectTitle = function(titleIndex)  end
+SelectTradingHouseGuildId = function(guildId) return false end
+SellAllJunk = function()  end
+SellInventoryItem = function(bagId,slotIndex,quantity)  end
+SellMount = function(stableIndex)  end
+SendMail = function(to,subject,body)  end
+SendPledgeOfMaraResponse = function(response)  end
+SendScoreBoardClosed = function()  end
+SetActionBarPage = function(physicalPageId,logicalPageId)  end
+SetActiveMount = function(stableIndex)  end
+SetCVar = function(CVarName,value)  end
+SetCampaignPreference = function(campaignPreference)  end
+SetChatCategoryColor = function(category,red,green,blue)  end
+SetChatContainerColors = function(chatContainerIndex,bgRed,bgGreen,bgBlue,bgMinAlpha,bgMaxAlpha)  end
+SetChatContainerTabCategoryEnabled = function(chatContainerIndex,tabIndex,chatCategory,enabled)  end
+SetChatContainerTabInfo = function(chatContainerIndex,tabIndex,name,isLocked,isInteractable,areTimestampsEnabled)  end
+SetChatFontSize = function(fontSize)  end
+SetCurrentQuickslot = function(slotId)  end
+SetCursorItemSoundsEnabled = function(enabled)  end
+SetDisplayedGuild = function(guildId) return false end
+SetFishingLure = function(lureIndex)  end
+SetFlashWaitTime = function(waitTimeMs)  end
+SetFloatingMarkerGlobalAlpha = function(alpha)  end
+SetFloatingMarkerInfo = function(markerType,size,primaryTexturePath,secondaryTexturePath,primaryPulses,secondaryPulses)  end
+SetFrameLocalPlayerInGameCamera = function(enabled)  end
+SetFrameLocalPlayerTarget = function(normalizedScreenX,normalizedScreenY)  end
+SetFramingScreenType = function(sreenType)  end
+SetFriendNote = function(friendIndex,note)  end
+SetFullscreenEffect = function(effectType,param1,param2)  end
+SetGameCameraUIMode = function(active)  end
+SetGuiHidden = function(guiName,hidden)  end
+SetGuildDescription = function(guildId,description)  end
+SetGuildMemberNote = function(guildId,memberIndex,note)  end
+SetGuildMotD = function(guildId,motd)  end
+SetHealthWarningStage = function(stage)  end
+SetIgnoreNote = function(ignoreIndex,note)  end
+SetItemIsJunk = function(bagId,slotIndex,junk)  end
+SetMapFloor = function(desiredFloorIndex) return 0 end
+SetMapPinAssisted = function(pinType,assisted,param1,param2,param3)  end
+SetMapPinContinuousPositionUpdate = function(pinType,continuousUpdate,param1,param2,param3)  end
+SetMapPinFilter = function(filter,showFilter)  end
+SetMapQuestPinsAssisted = function(journalQuestIndex,assisted)  end
+SetMapToMapListIndex = function(index) return 0 end
+SetMapToPlayerLocation = function() return 0 end
+SetMapToQuestCondition = function(journalQuestIndex,stepIndex,conditionIndex) return 0 end
+SetMapToQuestZone = function(questIndex) return 0 end
+SetPendingItemPost = function(bag,slot,quantity)  end
+SetPendingItemPurchase = function(index)  end
+SetSetting = function(system,settingId,value,setOptions)  end
+SetTracked = function(trackType,tracked,param1,param2) return false end
+SetTrackedIsAssisted = function(trackType,assisted,param1,param2)  end
+SetTradingHouseFilter = function(filterType,data1,data2,data3,data4,data5,data6,data7,data8)  end
+SetTradingHouseFilterRange = function(filterType,minOrExactValue,maxValue)  end
+SetTutorialSeen = function(tutorialIndex)  end
+SetUseInteractionCamera = function(enabled)  end
+SetVeteranDifficulty = function(isVeteranDifficulty)  end
+ShareQuest = function(journalQuestIndex)  end
+ShowMouse = function(onlyConsiderWhileMoving)  end
+SlotSkillAbilityInSlot = function(skillType,skillLineIndex,abilityIndex,slotIndex)  end
+SocketingChangesWillDestroyUpgrades = function() return false end
+SplitString = function(delims,stringToSplit)  end
+StartHelpSearch = function(searchString)  end
+StartLFGSearch = function(activity,index,largeGroup)  end
+StartLFMSearch = function(activity,index,largeGroup,numDpsOnly,numTankOnly,numHealerOnly,numDpsTank,numDpsHealer,numTankHealer,numAnyRole)  end
+StartMapPinAnimation = function(animationTimeline,animationTarget,limitToMapType,pinType,param1,param2,param3,playOffset,ignoreBreadcrumbs) return false end
+StartSocketingItem = function(bagId,slotId) return false end
+StartSocketingUnit = function(unitTag) return false end
+StopMapPinAnimation = function(pinType,param1,param2,param3)  end
+StopSocketing = function()  end
+SwitchGuestCampaign = function(campaignId)  end
+TakeMailAttachedItems = function(mailId)  end
+TakeMailAttachedMoney = function(mailId)  end
+TakeScreenshot = function()  end
+TargetNearestEnemy = function()  end
+TargetUnit = function(unitTag)  end
+TargetUnitByName = function(unitName,exact)  end
+ToggleChatLog = function()  end
+ToggleFullScreen = function()  end
+ToggleGameCameraFirstPerson = function()  end
+TogglePlayerWield = function()  end
+ToggleShowIngameGui = function()  end
+TradeAccept = function()  end
+TradeAddItem = function(bagId,itemIndex,tradeIndex)  end
+TradeCancel = function()  end
+TradeEdit = function()  end
+TradeInvite = function(target)  end
+TradeInviteAccept = function()  end
+TradeInviteByName = function(playerName)  end
+TradeInviteCancel = function()  end
+TradeInviteDecline = function()  end
+TradeRemoveItem = function(tradeIndex)  end
+TradeSetMoney = function(amount)  end
+TransferChatContainerTab = function(fromChatContainerIndex,fromTabIndex,toChatContainerIndex,toTabIndex)  end
+TransferFromGuildBank = function(slotId)  end
+TransferToGuildBank = function(sourceBag,sourceSlot)  end
+TravelToKeep = function(destinationKeepId)  end
+TriggerTutorial = function(triggerType)  end
+UnbindAllKeysFromAction = function(layerIndex,categoryIndex,actionIndex)  end
+UnbindKeyFromAction = function(layerIndex,categoryIndex,actionIndex,bindingIndex)  end
+UndecorateDisplayName = function(displayName) return "" end
+UnequipItem = function(equipSlot)  end
+UnregisterForAssignedCampaignData = function()  end
+UpdatePlayerRole = function(activity,selected)  end
+UseItem = function(bagId,slotIndex)  end
+UseQuestItem = function(journalQuestIndex,stepIndex,conditionIndex)  end
+UseQuestTool = function(journalQuestIndex,toolIndex)  end
+WithdrawMoneyFromBank = function(money)  end
+WouldProcessMapClick = function(normalizedClickX,normalizedClickY) return false end
+
+--  Special Functions
+
+-- Cached versions of the lua library functions
+
+zo_strlower         = LocaleAwareToLower
+zo_strupper         = LocaleAwareToUpper
+
+string.lowerbybyte  = string.lower
+string.upperbybyte  = string.upper
+
+string.lower        = zo_strlower
+string.upper        = zo_strupper
+
+zo_strsub           = string.sub
+zo_strgsub          = string.gsub
+zo_strlen           = string.len
+zo_strmatch         = string.match
+zo_strfind          = string.find
+zo_plainstrfind     = PlainStringFind
+zo_strsplit         = SplitString
+zo_loadstring       = LoadString
+
+zo_floor            = math.floor
+zo_ceil             = math.ceil
+zo_mod              = math.fmod
+zo_decimalsplit     = math.modf
+zo_abs              = math.abs
+zo_max              = math.max
+zo_min              = math.min
+zo_sqrt             = math.sqrt
+zo_pow              = math.pow
+zo_randomseed       = math.randomseed
+zo_random           = math.random
+zo_insecureNext     = InsecureNext
+
+function zo_insecurePairs(t)
+    return zo_insecureNext, t, nil
+end
+
+local function DefaultComparator(left, _, right)
+    return left - right
+end
+
+function zo_binarysearch(searchData, dataList, comparator)
+    comparator = comparator or DefaultComparator
+    local low, high = 1, #dataList
+    local mid = 0
+    
+    while low <= high do
+        mid = zo_floor( (low + high) / 2)
+        local compareVal = comparator(searchData, dataList[mid], mid)        
+        if(compareVal == 0) then
+            return true, mid
+        elseif(compareVal < 0) then
+            high = mid - 1
+        else
+            low = mid + 1
+        end
+    end
+    
+    high = zo_max(high, 1)
+    local numEntries = #dataList
+    while(high <= numEntries) do
+		if(comparator(searchData, dataList[high], high) < 0) then
+            return false, high
+        end
+        high = high + 1
+    end
+    
+    return false, high
+end
+
+function zo_binaryinsert(item, searchData, dataList, comparator)
+    local _, insertPosition = zo_binarysearch(searchData, dataList, comparator)
+    table.insert(dataList, insertPosition, item)
+end
+
+function zo_binaryremove(searchData, dataList, comparator)
+    local found, removePosition = zo_binarysearch(searchData, dataList, comparator)
+    if found then
+        table.remove(dataList, removePosition)
+    end
+end
+
+function zo_clamp(value, minimum, maximum)
+    if(value < minimum) then return minimum end
+    if(value > maximum) then return maximum end
+    return value
+end
+
+function zo_saturate(value)
+    return zo_clamp(value, 0.0, 1.0)
+end
+
+function zo_round(value)
+    return zo_floor(value + .5)
+end
+
+function zo_roundToZero(value)
+    return zo_floor(value > 0 and value + .5 or value - .5)
+end
+
+function zo_roundToNearest(value, nearest)
+    if nearest == 0 then
+        return value
+    end
+    return zo_roundToZero(value / nearest) * nearest
+end
+
+function zo_strjoin(separator, ...)
+	return table.concat({...}, separator)
+end
+
+function zo_lerp(from, to, amount)
+    return from + amount * (to - from)
+end
+
+function zo_deltaNormalizedLerp(from, to, amount)
+    return zo_lerp(from, to, zo_min(GetFrameDeltaNormalizedForTargetFramerate() * amount, 1.0))
+end
+
+function zo_floatsAreEqual(a, b, epsilon)
+    epsilon = epsilon or 0.001
+    return(zo_abs(a - b) <= epsilon)
+end
+
+function zo_iconFormat(path, width, height)
+    return string.format("|t%d:%d:%s|t", width, height, path)
+end
+
+function zo_iconTextFormat(path, width, height, text)
+    return zo_strformat(SI_FORMAT_ICON_TEXT, zo_iconFormat(path, width, height), text)
+end
+
+function zo_bulletFormat(label, text)
+    local bulletSpacer = GetString(SI_FORMAT_BULLET_SPACING)
+    local bulletSpacingWidth = label:GetStringWidth(bulletSpacer)
+    label:SetNewLineX(bulletSpacingWidth)
+    label:SetText(zo_strformat(SI_FORMAT_BULLET_TEXT, text))
+end
+
+function zo_callHandler(object, handler, ...)
+    local handlerFunction = object:GetHandler(handler)
+    if handlerFunction then
+        handlerFunction(object, ...)
+        return true
+    end
+    return false
+end
+
+local ZO_CallLaterId = 1
+
+function zo_callLater(func, ms)
+    local name = "CallLaterFunction"..ZO_CallLaterId
+    ZO_CallLaterId = ZO_CallLaterId + 1
+    EVENT_MANAGER:RegisterForUpdate(name, ms,
+        function()
+            func()
+            EVENT_MANAGER:UnregisterForUpdate(name)
+        end)
+end
+
+
+ZO_HIGHLIGHT_TEXT = {
+  UnpackRGBA = function(self) end,
+}
+
+ZO_PreHookHandler = function (control, event, func) end
+    
+ZO_SavedVars = {
+  New            = function(self, name, version, vtype , default, unknown ) 
+    return default 
+    end,
+  NewAccountWide = function(self, name, version, vtype , default, unknown )    
+    return default
+    end,
+}
+
+ZO_PreHook = function(name, func) end
+ZO_OptionsWindow_AddUserPanel = function(controlPanelID, name) end
+ZO_OptionsWindow_InitializeControl = function(list) end
+zo_strformat= function(name1,name2) return "name" end
+
+-- None ZO functions
+
+d = function(text) print (text) end
+
+--- Special Tables
+
+ANIMATION_MANAGER = {
+  CreateTimelineFromVirtual = function(self, name, control)     
+      _G[name] = { 
+        }                  
+        return _G[name]
+    end,
+}
+
+CALLBACK_MANAGER = {
+ RegisterCallback = function(self, name, func) end,
+}
+
+CreateControlFromVirtual = function(name, parent, virtualname, ix)
+  if name then 
+    return  WINDOW_MANAGER:CreateControl(name .. tostring(ix), parent, 1)    
+  else
+    return  WINDOW_MANAGER:CreateControl(virtualname, parent, 1)    
+  end
+end
+
+ESO_Dialogs = {}
+
+EVENT_MANAGER = {
+  RegisterForEvent = function(self, name, event, func)  end,
+}
+
+
+SLASH_COMMANDS = {}
+    
+  -- wm:CreateControl(nil, list, CT_BACKDROP)
+WINDOW_MANAGER = {
+  CreateTopLevelWindow = function(self, name) 
+      return WINDOW_MANAGER:CreateControl(name, nil, 0)        
+    end,
+	GetControlTableDummy = function(self)
+	        return {
+		 callback = {},
+         ClearAnchors = function(self) end,
+         IsHidden = function(self) return false end,
+         SetHandler = function(self, event,funct) return {} end,
+         SetAnchor = function(self, pos1, parent, pos2, x,y) end,
+         SetAnchorFill = function(self) end,
+         SetDimensions = function(self, x, y) end,
+         SetEdgeTexture = function(self, name, x, y) end,
+         SetMouseEnabled = function(self, enabled) end,
+         SetMovable = function(self, movable) end,
+         SetCenterColor = function(self, r,g,b,a) end,
+         SetEdgeColor = function(self, r,g,b,a) end,
+         SetAlpha = function(self, a) end,
+         SetDrawLevel = function(self, level) end,
+         SetDrawLayer = function(self, level) end,
+         SetFont = function(self, name) end,
+         SetHeight = function(self, value) end,
+         SetHorizontalAlignment = function(self, value) end,
+         SetWidth = function(self, value) end,
+         SetColor = function(self, r,g,b,a) end,
+         SetText = function(self, text) end,
+         SetNormalFontColor = function(self, r,g,b,a) end,
+         SetMouseEnabled = function(self, enabled) end,
+         SetMouseOverFontColor = function(self, r,g,b,a) end,
+         SetParent = function(self,name) end,
+         SetTexture = function(self, texture) end,
+         SetTextureCoords = function(self, x1,y1,x2,y2) end,
+         SetResizeToFitPadding = function(self, x,y) end,
+         GetName = function(self) return "name" end,         
+		 SetResizeToFitPadding = function(self,x,y) end,
+         -- Slider
+         SetValue = function(self, value) end,
+         SetHidden = function(self, hidden) end,         
+         GetWidth = function(self) return 100 end,
+        }          
+		end,
+  CreateControl = function(self, name, control, ct_control)     
+      local table = self:GetControlTableDummy()
+        if name then
+          _G[name] = table
+        end
+        return table      
+    end,
+  CreateControlFromVirtual = function(self, name, parent, virtualname, ix)
+      return CreateControlFromVirtual(name,parent,virtualname,ix)
+      end,
+  GetControlByName = function(self, name) return {} end,    
+}
+
+GetControl = function(container, name)  return WINDOW_MANAGER:GetControlTableDummy() end
+ZO_OptionsWindowResetToDefaultButton = WINDOW_MANAGER:CreateControl("ZO_OptionsWindowResetToDefaultButton",nil, 1)
+
+]]
+
+local GetXML = [[
+require("LuaXml")
+
+ESOAddonDev.GetXML = function (self,path)
+	  local xfile = xml.load(path) 
+	  local gui = xfile:find("GuiXml") 
+	  local parent = nil
+
+	  function rPrint(s, l, i, lastparent) -- recursive Print (structure, limit, indent)
+		l = (l) or 100; i = i or "";	-- default item limit, indent string
+		if (l<1) then print "ERROR: Item limit reached."; return l-1 end;  
+		local ts = type(s);
+		
+		if (ts ~= "table") then
+		  if i == "name" then       
+			entry = xfile:find(nil,"name",s)                  
+			if lastparent then s = s:gsub("%$%(parent%)",lastparent) end      
+			local control = 0
+			if entry:tag() == "Control" then control = CT_CONTROL end              
+			WINDOW_MANAGER:CreateControl(s,nil,control) 
+			if _G[s] then
+			  if self.ShowCreateControl then  print ("WINDOW_MANAGER:CreateControl => " .. s) end				  
+			end      
+			parent = s		
+		  end
+		  return l-1 
+		end        
+		for k,v in pairs(s) do 
+		  if type(k) == "string" then           
+			l = rPrint(v, l, tostring(k),parent);          
+			if (l < 0) then break end
+		  end
+		end  
+		for k,v in pairs(s) do 
+		  if type(k) == "number" then            
+			l = rPrint(v, l, tostring(k),parent);            
+			if (l < 0) then break end
+		  end
+		end
+		parent = lastparent
+		
+		return l
+	  end	
+
+	  -- if this substatement is found... 
+	  if gui ~= nil then 
+		print("GetXML: " .. path)
+		rPrint(gui,100000,1,"GuiXML")
+	  end 
+	end
+]]
+
+
 local function exePath(self, version)
   local version = tostring(version):gsub('%.','')
   local mainpath = ide.editorFilename:gsub("[^/\\]+$","")
@@ -303,35 +1832,51 @@ local interpreter = {
   frun = function(self,wfilename,rundebug)
     local exe = self:fexepath(version or "")
     local filepath = wfilename:GetFullPath()
+	
+	local tmplua = wx.wxFileName()
+	tmplua:AssignTempFileName(".")
+	tmpluafile = tmplua:GetFullPath()
+	local flua = io.open(tmpluafile, "w")
+	if not flua then
+		DisplayOutput("Can't open temporary file '"..filepath.."' for writing\n")
+		return
+	end
+	flua:write("ESOAddonDev = {  ShowCreateControl = false, } \n")
+	flua:write(standards)  -- Add Standards before executing the Lua
+	flua:write(GetXML) -- Add ESOAddonDev.GetXML()
+    flua:write(("dofile [[%s]]\n"):format(filepath))
+	flua:close()
+		
     if rundebug then
-      DebuggerAttachDefault({runstart = ide.config.debugger.runonstart == true})
+	 -- prepare tmp file
 
+      DebuggerAttachDefault({runstart = ide.config.debugger.runonstart == true})      
       -- update arg to point to the proper file
-      rundebug = ('if arg then arg[0] = [[%s]] end '):format(filepath)..rundebug
+      rundebug = ('if arg then arg[0] = [[%s]] end '):format(tmpluafile)..rundebug
 
       local tmpfile = wx.wxFileName()
       tmpfile:AssignTempFileName(".")
-      filepath = tmpfile:GetFullPath()
-      local f = io.open(filepath, "w")
+      tmpluafile = tmpfile:GetFullPath()
+      local f = io.open(tmpluafile, "w")
       if not f then
-        DisplayOutput("Can't open temporary file '"..filepath.."' for writing\n")
+        DisplayOutput("Can't open temporary file '"..tmpluafile.."' for writing\n")
         return
       end
       f:write(rundebug)
       f:close()
-    else
+    else	  
       -- if running on Windows and can't open the file, this may mean that
       -- the file path includes unicode characters that need special handling
-      local fh = io.open(filepath, "r")
+      local fh = io.open(tmpluafile, "r")
       if fh then fh:close() end
       if ide.osname == 'Windows' and pcall(require, "winapi")
       and wfilename:FileExists() and not fh then
         winapi.set_encoding(winapi.CP_UTF8)
-        filepath = winapi.short_path(filepath)
+        tmpluafile = winapi.short_path(tmpluafile)
       end
     end
     local params = ide.config.arg.any or ide.config.arg.lua
-    local code = ([[-e "io.stdout:setvbuf('no')" "%s"]]):format(filepath)
+    local code = ([[-e "io.stdout:setvbuf('no')" "%s"]]):format(tmpluafile)
     local cmd = '"'..exe..'" '..code..(params and " "..params or "")
 
     -- modify CPATH to work with other Lua versions
@@ -343,7 +1888,7 @@ local interpreter = {
     -- CommandLineRun(cmd,wdir,tooutput,nohide,stringcallback,uid,endcallback)
     local pid = CommandLineRun(cmd,self:fworkdir(wfilename),true,false,nil,nil,
       function() 
-		if rundebug then wx.wxRemoveFile(filepath) end 
+		if rundebug then wx.wxRemoveFile(tmpluafile) end 
 	  end)
 
     if version and cpath then wx.wxSetEnv("LUA_CPATH", cpath) end
