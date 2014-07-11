@@ -1854,10 +1854,11 @@ local interpreter = {
       -- update arg to point to the proper file
       rundebug = ('if arg then arg[0] = [[%s]] end '):format(tmpluafile)..rundebug
 
-      local tmpfile = wx.wxFileName()
-      tmpfile:AssignTempFileName(".")
-      tmpluafile = tmpfile:GetFullPath()
-      local f = io.open(tmpluafile, "w")
+	  
+      -- local tmpfile = wx.wxFileName()
+      -- tmpfile:AssignTempFileName(".")
+      -- tmpluafile = tmpfile:GetFullPath()
+      local f = io.open(tmpluafile, "a")
       if not f then
         DisplayOutput("Can't open temporary file '"..tmpluafile.."' for writing\n")
         return
