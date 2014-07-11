@@ -28,44 +28,23 @@ local interpreter = {
 		DisplayOutput("Can't open temporary file '"..tmpluafile.."' for writing\n")
 		return
 	end
-	flua:write("print [[Hello Inside ESOAddonDev]]\n")
-    flua:write(("dofile [[%s]]\n"):format(filepath))
-	flua:close()
-    
+	flua:write("print [[Hello Inside ESOAddonDev]]\n")    
+	
     if rundebug then  -- We are Debugging
       DebuggerAttachDefault({runstart = ide.config.debugger.runonstart == true})      
       -- update arg to point to the proper file
-      rundebug = ('if arg then arg[0] = [[%s]] end '):format(tmpluafile)..rundebug
-	  
-      local tmpfile = wx.wxFileName()
-      tmpfile:AssignTempFileName(".")
-      local filepath = tmpfile:GetFullPath()
-      local f = io.open(filepath, "w")
-      if not f then
-        DisplayOutput("Can't open temporary file '"..filepath.."' for writing\n")
-        return
-      end
-      f:write(rundebug)
-      f:close()
-	  tmpluafile = filepath
-	  local fh = io.open(tmpluafile, "r")
-      if fh then fh:close() end
-      if ide.osname == 'Windows' and pcall(require, "winapi")
-      and tmpfile:FileExists() and not fh then
-        winapi.set_encoding(winapi.CP_UTF8)
-        tmpluafile = winapi.short_path(tmpluafile)
-      end
-    else	   -- We are Only Running (without Debugging)
-      -- if running on Windows and can't open the file, this may mean that
-      -- the file path includes unicode characters that need special handling
-      local fh = io.open(tmpluafile, "r")
-      if fh then fh:close() end
-      if ide.osname == 'Windows' and pcall(require, "winapi")
-      and wfilename:FileExists() and not fh then
-        winapi.set_encoding(winapi.CP_UTF8)
-        tmpluafile = winapi.short_path(tmpluafile)
-      end
+      flua:write(("if arg then arg[0] = [[%s]] end require('mobdebug').start()\n"):format(filepath))
     end
+	flua:write(("dofile [[%s]]\n"):format(filepath))
+	flua:close()
+	
+	local fh = io.open(tmpluafile, "r")
+    if fh then fh:close() end
+    if ide.osname == 'Windows' and pcall(require, "winapi")   and tmplua:FileExists() and not fh then
+        winapi.set_encoding(winapi.CP_UTF8)
+        tmpluafile = winapi.short_path(tmpluafile)
+    end
+
     local params = ide.config.arg.any or ide.config.arg.lua
     local code = ([[-e "io.stdout:setvbuf('no')" "%s"]]):format(tmpluafile)
     local cmd = '"'..exe..'" '..code..(params and " "..params or "")
