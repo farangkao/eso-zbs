@@ -33,7 +33,7 @@ local interpreter = {
     if rundebug then  -- We are Debugging
       DebuggerAttachDefault({runstart = ide.config.debugger.runonstart == true})      
       -- update arg to point to the proper file
-      flua:write(("if arg then arg[0] = [[%s]] end require('mobdebug').start()\n"):format(filepath))
+      flua:write(("if arg then arg[0] = [[%s]] end %s\n"):format(filepath,rundebug))
     end
 	flua:write(("dofile [[%s]]\n"):format(filepath))
 	flua:close()
